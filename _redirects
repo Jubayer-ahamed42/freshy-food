@@ -1,0 +1,4 @@
+# Netlify & Cloudflare Pages Redirects
+/admin        /admin.html      200
+/dashboard    /admin.html      200
+/order        /index.html#order 302
