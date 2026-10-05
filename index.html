@@ -208,7 +208,57 @@
             <span>অর্ডার করুন</span>
             <i class="fa-solid fa-arrow-right text-xs"></i>
           </a>
+
+          <!-- Mobile Hamburger Toggle Button (lg:hidden) -->
+          <button type="button" 
+                  id="mobileMenuToggleBtn" 
+                  onclick="toggleMobileMenu()" 
+                  aria-label="Toggle Mobile Menu"
+                  class="lg:hidden w-10 h-10 rounded-xl bg-forest/5 hover:bg-forest/10 text-forest border border-forest/20 flex items-center justify-center text-lg transition-all duration-200 active:scale-95 shrink-0">
+            <i id="mobileMenuIcon" class="fa-solid fa-bars"></i>
+          </button>
         </div>
+      </div>
+    </div>
+
+    <!-- Mobile Slide-Down Quick Navigation Menu Sheet -->
+    <div id="mobileMenuDrawer" class="hidden lg:hidden bg-white/98 backdrop-blur-md border-t border-gray-200 shadow-xl transition-all duration-300">
+      <div class="max-w-7xl mx-auto px-4 py-3 space-y-1.5">
+        <a href="#products" onclick="closeMobileMenu()" class="flex items-center justify-between p-2.5 rounded-xl hover:bg-creamDark font-bold text-sm text-forest border border-transparent hover:border-forest/10 transition">
+          <div class="flex items-center gap-2.5">
+            <span class="w-8 h-8 rounded-lg bg-emerald/10 text-emerald flex items-center justify-center text-sm"><i class="fa-solid fa-basket-shopping"></i></span>
+            <span>🌿 আমাদের পণ্য</span>
+          </div>
+          <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+        </a>
+        <a href="#whyUs" onclick="closeMobileMenu()" class="flex items-center justify-between p-2.5 rounded-xl hover:bg-creamDark font-bold text-sm text-forest border border-transparent hover:border-forest/10 transition">
+          <div class="flex items-center gap-2.5">
+            <span class="w-8 h-8 rounded-lg bg-emerald/10 text-emerald flex items-center justify-center text-sm"><i class="fa-solid fa-leaf"></i></span>
+            <span>💎 কেন আমরা সেরা</span>
+          </div>
+          <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+        </a>
+        <a href="#reviews" onclick="closeMobileMenu()" class="flex items-center justify-between p-2.5 rounded-xl hover:bg-creamDark font-bold text-sm text-forest border border-transparent hover:border-forest/10 transition">
+          <div class="flex items-center gap-2.5">
+            <span class="w-8 h-8 rounded-lg bg-honey/20 text-honey-amber flex items-center justify-center text-sm"><i class="fa-solid fa-star"></i></span>
+            <span>⭐️ কাস্টমার রিভিউ</span>
+          </div>
+          <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+        </a>
+        <a href="#faq" onclick="closeMobileMenu()" class="flex items-center justify-between p-2.5 rounded-xl hover:bg-creamDark font-bold text-sm text-forest border border-transparent hover:border-forest/10 transition">
+          <div class="flex items-center gap-2.5">
+            <span class="w-8 h-8 rounded-lg bg-forest/10 text-forest flex items-center justify-center text-sm"><i class="fa-solid fa-circle-question"></i></span>
+            <span>❓ সাধারণ প্রশ্ন</span>
+          </div>
+          <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+        </a>
+        <a href="#checkout" onclick="closeMobileMenu()" class="flex items-center justify-between p-2.5 rounded-xl bg-forest text-honey hover:bg-forest-dark font-extrabold text-sm shadow-sm transition">
+          <div class="flex items-center gap-2.5">
+            <span class="w-8 h-8 rounded-lg bg-honey/20 text-honey flex items-center justify-center text-sm"><i class="fa-solid fa-truck-fast"></i></span>
+            <span>🛒 সরাসরি অর্ডার করুন</span>
+          </div>
+          <i class="fa-solid fa-arrow-right text-xs text-honey"></i>
+        </a>
       </div>
     </div>
   </header>
@@ -758,147 +808,157 @@
               </div>
             </div>
 
-            <!-- STEP 2: DELIVERY ZONE SELECTION -->
-            <div>
-              <h4 class="font-bold text-forest text-base sm:text-lg flex items-center gap-2 mb-4 pb-2 border-b border-gray-100">
-                <span class="w-6 h-6 rounded-full bg-forest text-white text-xs flex items-center justify-center font-eng">২</span>
-                <span>ডেলিভারি এরিয়া নির্বাচন করুন:</span>
-              </h4>
+            <!-- INTERACTIVE STEPS 2, 3, 4 CONTAINER (Smart locked when cart is empty) -->
+            <div id="checkoutInputsContainer" class="space-y-8 opacity-40 pointer-events-none select-none transition-all duration-300">
 
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <!-- Inside Dhaka -->
-                <label id="zoneLabelDhaka" class="relative flex items-center justify-between p-4 rounded-2xl border-2 border-forest bg-forest/5 cursor-pointer transition-all duration-200">
-                  <div class="flex items-center gap-3">
-                    <input type="radio" name="deliveryZone" value="dhaka" checked onchange="updateDeliveryZone('dhaka')" class="w-5 h-5 text-forest accent-forest">
-                    <div>
-                      <span class="font-bold text-sm sm:text-base text-forest block">ঢাকার ভেতরে</span>
-                      <span class="text-xs text-gray-500">হোম ডেলিভারি (২-৩ দিন)</span>
-                    </div>
-                  </div>
-                  <div class="text-right">
-                    <span id="displayZoneFeeDhaka" class="text-base font-extrabold text-forest font-eng">৳ ৬০</span>
-                  </div>
-                </label>
-
-                <!-- Outside Dhaka -->
-                <label id="zoneLabelOutside" class="relative flex items-center justify-between p-4 rounded-2xl border-2 border-gray-200 hover:border-gray-400 bg-white cursor-pointer transition-all duration-200">
-                  <div class="flex items-center gap-3">
-                    <input type="radio" name="deliveryZone" value="outside" onchange="updateDeliveryZone('outside')" class="w-5 h-5 text-forest accent-forest">
-                    <div>
-                      <span class="font-bold text-sm sm:text-base text-gray-800 block">ঢাকার বাইরে</span>
-                      <span class="text-xs text-gray-500">সারা দেশে কুরিয়ার (৩-৪ দিন)</span>
-                    </div>
-                  </div>
-                  <div class="text-right">
-                    <span id="displayZoneFeeOutside" class="text-base font-extrabold text-forest font-eng">৳ ১২০</span>
-                  </div>
-                </label>
-              </div>
-            </div>
-
-            <!-- STEP 3: CUSTOMER CONTACT DETAILS FORM -->
-            <form id="orderForm" onsubmit="handleOrderSubmit(event)" class="space-y-5">
-              <h4 class="font-bold text-forest text-base sm:text-lg flex items-center gap-2 pb-2 border-b border-gray-100">
-                <span class="w-6 h-6 rounded-full bg-forest text-white text-xs flex items-center justify-center font-eng">৩</span>
-                <span>আপনার ডেলিভারি তথ্য দিন:</span>
-              </h4>
-
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Full Name -->
-                <div>
-                  <label for="custName" class="block text-xs sm:text-sm font-bold text-gray-800 mb-1.5">
-                    আপনার সম্পূর্ণ নাম <span class="text-red-500">*</span>
-                  </label>
-                  <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
-                      <i class="fa-solid fa-user"></i>
-                    </div>
-                    <input type="text" id="custName" required placeholder="উদা: মোঃ আরিফুল ইসলাম" 
-                           class="w-full pl-10 pr-4 py-3 bg-creamDark border border-gray-300 rounded-xl focus:ring-2 focus:ring-forest focus:border-forest text-sm font-medium transition-all outline-none">
-                  </div>
-                </div>
-
-                <!-- Phone Number -->
-                <div>
-                  <label for="custPhone" class="block text-xs sm:text-sm font-bold text-gray-800 mb-1.5">
-                    মোবাইল নম্বর <span class="text-red-500">* (সঠিক ১১ ডিজিট)</span>
-                  </label>
-                  <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
-                      <i class="fa-solid fa-phone"></i>
-                    </div>
-                    <input type="tel" id="custPhone" required placeholder="01XXXXXXXXX" maxlength="11"
-                           pattern="^01[3-9]\d{8}$"
-                           class="w-full pl-10 pr-4 py-3 bg-creamDark border border-gray-300 rounded-xl focus:ring-2 focus:ring-forest focus:border-forest text-sm font-eng font-medium transition-all outline-none">
-                  </div>
-                  <span id="phoneError" class="text-xs text-red-500 hidden mt-1">অনুগ্রহ করে সঠিক ১১ ডিজিটের বাংলাদেশী মোবাইল নম্বর দিন</span>
-                </div>
-              </div>
-
-              <!-- Full Address -->
+              <!-- STEP 2: DELIVERY ZONE SELECTION -->
               <div>
-                <label for="custAddress" class="block text-xs sm:text-sm font-bold text-gray-800 mb-1.5">
-                  সম্পূর্ণ ডেলিভারি ঠিকানা <span class="text-red-500">* (জেলা, থানা, বাসা ও রোড নং)</span>
-                </label>
-                <div class="relative">
-                  <div class="absolute top-3.5 left-3.5 pointer-events-none text-gray-400">
-                    <i class="fa-solid fa-location-dot"></i>
-                  </div>
-                  <textarea id="custAddress" required rows="2" placeholder="উদা: বাড়ি #১২, রোড #০৫, সেক্টর #৩, উত্তরা, ঢাকা" 
-                            class="w-full pl-10 pr-4 py-3 bg-creamDark border border-gray-300 rounded-xl focus:ring-2 focus:ring-forest focus:border-forest text-sm font-medium transition-all outline-none"></textarea>
+                <h4 class="font-bold text-forest text-base sm:text-lg flex items-center gap-2 mb-4 pb-2 border-b border-gray-100">
+                  <span class="w-6 h-6 rounded-full bg-forest text-white text-xs flex items-center justify-center font-eng">২</span>
+                  <span>ডেলিভারি এরিয়া নির্বাচন করুন:</span>
+                </h4>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <!-- Inside Dhaka -->
+                  <label id="zoneLabelDhaka" class="relative flex items-center justify-between p-4 rounded-2xl border-2 border-forest bg-forest/5 cursor-pointer transition-all duration-200">
+                    <div class="flex items-center gap-3">
+                      <input type="radio" name="deliveryZone" value="dhaka" checked onchange="updateDeliveryZone('dhaka')" class="w-5 h-5 text-forest accent-forest">
+                      <div>
+                        <span class="font-bold text-sm sm:text-base text-forest block">ঢাকার ভেতরে</span>
+                        <span class="text-xs text-gray-500">হোম ডেলিভারি (২-৩ দিন)</span>
+                      </div>
+                    </div>
+                    <div class="text-right">
+                      <span id="displayZoneFeeDhaka" class="text-base font-extrabold text-forest font-eng">৳ ৬০</span>
+                    </div>
+                  </label>
+
+                  <!-- Outside Dhaka -->
+                  <label id="zoneLabelOutside" class="relative flex items-center justify-between p-4 rounded-2xl border-2 border-gray-200 hover:border-gray-400 bg-white cursor-pointer transition-all duration-200">
+                    <div class="flex items-center gap-3">
+                      <input type="radio" name="deliveryZone" value="outside" onchange="updateDeliveryZone('outside')" class="w-5 h-5 text-forest accent-forest">
+                      <div>
+                        <span class="font-bold text-sm sm:text-base text-gray-800 block">ঢাকার বাইরে</span>
+                        <span class="text-xs text-gray-500">সারা দেশে কুরিয়ার (৩-৪ দিন)</span>
+                      </div>
+                    </div>
+                    <div class="text-right">
+                      <span id="displayZoneFeeOutside" class="text-base font-extrabold text-forest font-eng">৳ ১২০</span>
+                    </div>
+                  </label>
                 </div>
               </div>
 
-              <!-- Optional Special Note -->
-              <div>
-                <label for="custNote" class="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5">
-                  স্পেশাল নোট (ঐচ্ছিক)
-                </label>
-                <input type="text" id="custNote" placeholder="উদা: অফিস টাইমে কল করবেন / গিফট প্যাকেজিং লাগবে" 
-                       class="w-full px-4 py-2.5 bg-creamDark border border-gray-300 rounded-xl focus:ring-2 focus:ring-forest focus:border-forest text-xs sm:text-sm transition-all outline-none">
-              </div>
+              <!-- STEP 3: CUSTOMER CONTACT DETAILS FORM -->
+              <form id="orderForm" onsubmit="handleOrderSubmit(event)" class="space-y-5">
+                <h4 class="font-bold text-forest text-base sm:text-lg flex items-center gap-2 pb-2 border-b border-gray-100">
+                  <span class="w-6 h-6 rounded-full bg-forest text-white text-xs flex items-center justify-center font-eng">৩</span>
+                  <span>আপনার ডেলিভারি তথ্য দিন:</span>
+                </h4>
 
-              <!-- STEP 4: LIVE CALCULATION INVOICE BOX -->
-              <div class="bg-forest-dark text-white rounded-2xl p-5 sm:p-6 space-y-3 mt-6 border border-honey/30">
-                <div class="flex justify-between items-center text-xs sm:text-sm text-white/80">
-                  <span>পণ্যের মূল্য (Subtotal):</span>
-                  <span id="calcSubtotal" class="font-eng font-bold text-base text-white">৳ ০</span>
-                </div>
-                <div class="flex justify-between items-center text-xs sm:text-sm text-white/80">
-                  <span id="calcDeliveryLabel">ডেলিভারি চার্জ (ঢাকার ভেতরে):</span>
-                  <span id="calcDeliveryCharge" class="font-eng font-bold text-base text-white">৳ ০</span>
-                </div>
-                <div id="calcDiscountRow" class="hidden flex justify-between items-center text-xs sm:text-sm text-honey-light">
-                  <span>বিশেষ ছাড় (কম্বো ডিসকাউন্ট):</span>
-                  <span id="calcDiscount" class="font-eng font-bold text-base text-honey">- ৳ ০</span>
-                </div>
-                <div class="pt-3 border-t border-white/20 flex justify-between items-center">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <!-- Full Name -->
                   <div>
-                    <span class="text-sm sm:text-base font-extrabold text-honey block">সর্বমোট প্রদেয় টাকা:</span>
-                    <span class="text-[11px] text-white/70">পণ্য হাতে পেয়ে পরিশোধ করবেন</span>
+                    <label for="custName" class="block text-xs sm:text-sm font-bold text-gray-800 mb-1.5">
+                      আপনার সম্পূর্ণ নাম <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                      <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+                        <i class="fa-solid fa-user"></i>
+                      </div>
+                      <input type="text" id="custName" required placeholder="উদা: মোঃ আরিফুল ইসলাম" 
+                             class="w-full pl-10 pr-4 py-3 bg-creamDark border border-gray-300 rounded-xl focus:ring-2 focus:ring-forest focus:border-forest text-sm font-medium transition-all outline-none">
+                    </div>
                   </div>
-                  <span id="calcGrandTotal" class="text-2xl sm:text-3xl font-black text-honey font-eng">৳ ০</span>
-                </div>
-              </div>
 
-              <!-- HUGE CONVERTING ORDER BUTTON -->
-              <div class="pt-4">
-                <button type="submit" 
-                        id="submitOrderBtn"
-                        class="w-full py-4 sm:py-5 px-6 rounded-2xl bg-honey hover:bg-honey-dark text-forest font-black text-lg sm:text-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 transform hover:-translate-y-0.5">
-                  <i class="fa-solid fa-circle-check text-2xl text-forest"></i>
-                  <span>অর্ডার কনফার্ম করুন — <span id="btnTotalDisplay" class="font-eng">৳ ০</span> (ক্যাশ অন ডেলিভারি)</span>
-                </button>
-                <div class="text-center mt-3 text-xs text-gray-500 flex items-center justify-center gap-3">
-                  <span>🔒 তথ্য সম্পূর্ণ সুরক্ষিত</span>
-                  <span>•</span>
-                  <span>💵 কোনো অগ্রিম পেমেন্ট লাগবে না</span>
-                  <span>•</span>
-                  <span>🔄 ৭ দিনের রিটার্ন গ্যারান্টি</span>
+                  <!-- Phone Number -->
+                  <div>
+                    <label for="custPhone" class="block text-xs sm:text-sm font-bold text-gray-800 mb-1.5">
+                      মোবাইল নম্বর <span class="text-red-500">* (সঠিক ১১ ডিজিট)</span>
+                    </label>
+                    <div class="relative">
+                      <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+                        <i class="fa-solid fa-phone"></i>
+                      </div>
+                      <input type="tel" id="custPhone" required placeholder="01XXXXXXXXX" maxlength="11"
+                             pattern="^01[3-9]\d{8}$"
+                             class="w-full pl-10 pr-4 py-3 bg-creamDark border border-gray-300 rounded-xl focus:ring-2 focus:ring-forest focus:border-forest text-sm font-eng font-medium transition-all outline-none">
+                    </div>
+                    <span id="phoneError" class="text-xs text-red-500 hidden mt-1">অনুগ্রহ করে সঠিক ১১ ডিজিটের বাংলাদেশী মোবাইল নম্বর দিন</span>
+                  </div>
                 </div>
-              </div>
 
-            </form>
+                <!-- Full Address -->
+                <div>
+                  <label for="custAddress" class="block text-xs sm:text-sm font-bold text-gray-800 mb-1.5">
+                    সম্পূর্ণ ডেলিভারি ঠিকানা <span class="text-red-500">* (জেলা, থানা, বাসা ও রোড নং)</span>
+                  </label>
+                  <div class="relative">
+                    <div class="absolute top-3.5 left-3.5 pointer-events-none text-gray-400">
+                      <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <textarea id="custAddress" required rows="2" placeholder="উদা: বাড়ি #১২, রোড #০৫, সেক্টর #৩, উত্তরা, ঢাকা" 
+                              class="w-full pl-10 pr-4 py-3 bg-creamDark border border-gray-300 rounded-xl focus:ring-2 focus:ring-forest focus:border-forest text-sm font-medium transition-all outline-none"></textarea>
+                  </div>
+                </div>
+
+                <!-- Optional Special Note -->
+                <div>
+                  <label for="custNote" class="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5">
+                    স্পেশাল নোট (ঐচ্ছিক)
+                  </label>
+                  <input type="text" id="custNote" placeholder="উদা: অফিস টাইমে কল করবেন / গিফট প্যাকেজিং লাগবে" 
+                         class="w-full px-4 py-2.5 bg-creamDark border border-gray-300 rounded-xl focus:ring-2 focus:ring-forest focus:border-forest text-xs sm:text-sm transition-all outline-none">
+                </div>
+
+                <!-- STEP 4: LIVE CALCULATION INVOICE BOX -->
+                <div class="bg-forest-dark text-white rounded-2xl p-5 sm:p-6 space-y-3 mt-6 border border-honey/30">
+                  <div class="flex justify-between items-center text-xs sm:text-sm text-white/80">
+                    <span>পণ্যের মূল্য (Subtotal):</span>
+                    <span id="calcSubtotal" class="font-eng font-bold text-base text-white">৳ ০</span>
+                  </div>
+                  <div class="flex justify-between items-center text-xs sm:text-sm text-white/80">
+                    <span id="calcDeliveryLabel">ডেলিভারি চার্জ (ঢাকার ভেতরে):</span>
+                    <span id="calcDeliveryCharge" class="font-eng font-bold text-base text-white">৳ ০</span>
+                  </div>
+                  <div id="calcDiscountRow" class="hidden flex justify-between items-center text-xs sm:text-sm text-honey-light">
+                    <span>বিশেষ ছাড় (কম্বো ডিসকাউন্ট):</span>
+                    <span id="calcDiscount" class="font-eng font-bold text-base text-honey">- ৳ ০</span>
+                  </div>
+                  <div class="pt-3 border-t border-white/20 flex justify-between items-center">
+                    <div>
+                      <span class="text-sm sm:text-base font-extrabold text-honey block">সর্বমোট প্রদেয় টাকা:</span>
+                      <span class="text-[11px] text-white/70">পণ্য হাতে পেয়ে পরিশোধ করবেন</span>
+                    </div>
+                    <span id="calcGrandTotal" class="text-2xl sm:text-3xl font-black text-honey font-eng">৳ ০</span>
+                  </div>
+                </div>
+
+                <!-- HUGE CONVERTING ORDER BUTTON -->
+                <div class="pt-4">
+                  <button type="submit" 
+                          id="submitOrderBtn"
+                          class="w-full py-4 sm:py-5 px-6 rounded-2xl bg-honey hover:bg-honey-dark text-forest font-black text-lg sm:text-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 transform hover:-translate-y-0.5">
+                    <i class="fa-solid fa-circle-check text-2xl text-forest"></i>
+                    <span>অর্ডার কনফার্ম করুন — <span id="btnTotalDisplay" class="font-eng">৳ ০</span> (ক্যাশ অন ডেলিভারি)</span>
+                  </button>
+                  <div class="text-center mt-3 text-xs text-gray-500 flex flex-col items-center justify-center gap-2">
+                    <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+                      <span>🔒 তথ্য সম্পূর্ণ সুরক্ষিত</span>
+                      <span>•</span>
+                      <span class="font-bold text-forest">💵 কোনো অগ্রিম পেমেন্ট লাগবে না</span>
+                      <span>•</span>
+                      <span>🔄 ৭ দিনের রিটার্ন গ্যারান্টি</span>
+                    </div>
+                    <p class="text-[11px] sm:text-xs text-forest bg-forest/5 border border-forest/20 rounded-xl py-1 px-3 font-medium">
+                      💵 ক্যাশ অন ডেলিভারি (পণ্য হাতে পেয়ে নগদ অথবা ডেলিভারিম্যানকে বিকাশ/নগদে মূল্য পরিশোধ করতে পারবেন)
+                    </p>
+                  </div>
+                </div>
+
+              </form>
+
+            </div>
 
           </div>
         </div>
@@ -994,11 +1054,11 @@
         <div>
           © 2026 <strong class="text-white">Freshy Food (ফ্রেশি ফুড)</strong>. সর্বস্বত্ব সংরক্ষিত।
         </div>
-        <div class="flex items-center gap-3">
+        <div class="flex flex-wrap items-center justify-center sm:justify-end gap-2 text-xs">
           <span class="text-white/80">পেমেন্ট মেথড:</span>
-          <span class="bg-white/10 text-white px-2 py-0.5 rounded font-medium">ক্যাশ অন ডেলিভারি</span>
-          <span class="bg-pink-600/30 text-pink-300 px-2 py-0.5 rounded font-medium">বিকাশ</span>
-          <span class="bg-orange-600/30 text-orange-300 px-2 py-0.5 rounded font-medium">নগদ</span>
+          <span class="bg-white/10 text-cream px-3 py-1.5 rounded-xl font-medium border border-white/10 flex items-center gap-1.5">
+            <span>💵 ক্যাশ অন ডেলিভারি (পণ্য হাতে পেয়ে নগদ অথবা ডেলিভারিম্যানকে বিকাশ/নগদে মূল্য পরিশোধ করতে পারবেন)</span>
+          </span>
         </div>
       </div>
     </div>
@@ -1641,11 +1701,16 @@
           <div class="text-center py-8 px-4 bg-creamDark rounded-2xl border border-dashed border-gray-300">
             <i class="fa-solid fa-basket-shopping text-3xl text-gray-400 mb-2"></i>
             <p class="text-sm font-bold text-gray-700">🛒 আপনার কার্ট বর্তমানে খালি।</p>
-            <p class="text-xs text-gray-500 mb-4 mt-1">অনুগ্রহ করে ওপরের তালিকা থেকে আপনার পছন্দের পণ্য নির্বাচন করুন।</p>
+            <p class="text-xs text-gray-500 mb-3 mt-1">অনুগ্রহ করে ওপরের তালিকা থেকে আপনার পছন্দের পণ্য নির্বাচন করুন।</p>
             <a href="#products" class="inline-flex items-center gap-2 bg-forest text-honey hover:bg-forest-dark font-bold text-xs px-5 py-2.5 rounded-xl shadow transition">
               <span>পণ্য তালিকা দেখুন</span>
               <i class="fa-solid fa-arrow-up text-[10px]"></i>
             </a>
+            <div class="mt-4 pt-3 border-t border-gray-200/60">
+              <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800 bg-emerald/10 border border-emerald/20 px-3.5 py-1.5 rounded-xl">
+                <span>👆 ওপরের তালিকা থেকে পছন্দের পণ্য নির্বাচন করলেই নিচের অর্ডার ফর্মটি স্বয়ংক্রিয়ভাবে সচল হবে।</span>
+              </span>
+            </div>
           </div>
         `;
       } else {
@@ -1752,6 +1817,49 @@
           mobileCta.href = '#checkout';
           mobileCta.innerHTML = `<span>🛒 অর্ডার করুন</span><i class="fa-solid fa-arrow-right text-xs"></i>`;
         }
+      }
+
+      // Smart lock/unlock for checkout inputs container based on cart
+      const inputsContainer = document.getElementById('checkoutInputsContainer');
+      if (inputsContainer) {
+        if (cart.length === 0) {
+          inputsContainer.className = 'space-y-8 opacity-40 pointer-events-none select-none transition-all duration-300';
+        } else {
+          inputsContainer.className = 'space-y-8 opacity-100 pointer-events-auto transition-all duration-300';
+        }
+      }
+    }
+
+    // Mobile Navigation Menu Drawer Toggle
+    let mobileMenuOpen = false;
+    function toggleMobileMenu() {
+      mobileMenuOpen = !mobileMenuOpen;
+      const drawer = document.getElementById('mobileMenuDrawer');
+      const icon = document.getElementById('mobileMenuIcon');
+      if (!drawer) return;
+      if (mobileMenuOpen) {
+        drawer.classList.remove('hidden');
+        if (icon) {
+          icon.classList.remove('fa-bars');
+          icon.classList.add('fa-xmark');
+        }
+      } else {
+        drawer.classList.add('hidden');
+        if (icon) {
+          icon.classList.remove('fa-xmark');
+          icon.classList.add('fa-bars');
+        }
+      }
+    }
+
+    function closeMobileMenu() {
+      mobileMenuOpen = false;
+      const drawer = document.getElementById('mobileMenuDrawer');
+      const icon = document.getElementById('mobileMenuIcon');
+      if (drawer) drawer.classList.add('hidden');
+      if (icon) {
+        icon.classList.remove('fa-xmark');
+        icon.classList.add('fa-bars');
       }
     }
 
