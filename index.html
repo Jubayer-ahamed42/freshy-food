@@ -199,8 +199,8 @@
           <a href="#checkout" class="relative inline-flex items-center gap-2 bg-creamDark hover:bg-honey/20 border border-honey/40 px-3 py-2 sm:px-4 sm:py-2 rounded-xl text-forest font-bold text-sm transition-all duration-200">
             <i class="fa-solid fa-cart-shopping text-honey-amber text-base"></i>
             <span class="hidden md:inline text-xs font-semibold">কার্ট:</span>
-            <span id="headerCartCount" class="bg-forest text-honey text-xs font-bold font-eng px-2 py-0.5 rounded-full">১</span>
-            <span id="headerCartTotal" class="hidden sm:inline font-eng text-forest font-bold text-sm">৳ ৯৫০</span>
+            <span id="headerCartCount" class="bg-forest text-honey text-xs font-bold font-eng px-2 py-0.5 rounded-full">০</span>
+            <span id="headerCartTotal" class="hidden sm:inline font-eng text-forest font-bold text-sm">৳ ০</span>
           </a>
 
           <!-- Primary Order CTA -->
@@ -243,50 +243,13 @@
               কেমিক্যাল, প্রিজারভেটিভ ও রিফাইন্ড চিনিমুক্ত স্বাস্থ্যকর জীবনের সেরা সমাধান সরাসরি আপনার ঘরে। স্বাস্থ্য সচেতন পরিবারের নির্ভরযোগ্য সঙ্গী <strong class="text-honey-light">ফ্রেশি ফুড</strong>।
             </p>
 
-            <!-- Key Trust Badges -->
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2 max-w-xl mx-auto lg:mx-0">
-              <div class="flex items-center gap-2.5 bg-white/5 border border-white/10 rounded-xl p-2.5 text-left">
-                <div class="w-8 h-8 rounded-lg bg-emerald/30 text-honey flex items-center justify-center shrink-0">
-                  <i class="fa-solid fa-certificate text-base"></i>
-                </div>
-                <div>
-                  <h4 class="text-xs font-bold text-white">১০০% প্রাকৃতিক</h4>
-                  <p class="text-[11px] text-white/70">কোনো ভেজাল নেই</p>
-                </div>
-              </div>
-
-              <div class="flex items-center gap-2.5 bg-white/5 border border-white/10 rounded-xl p-2.5 text-left">
-                <div class="w-8 h-8 rounded-lg bg-emerald/30 text-honey flex items-center justify-center shrink-0">
-                  <i class="fa-solid fa-truck-fast text-base"></i>
-                </div>
-                <div>
-                  <h4 class="text-xs font-bold text-white">ক্যাশ অন ডেলিভারি</h4>
-                  <p class="text-[11px] text-white/70">দেখে মূল্য দিন</p>
-                </div>
-              </div>
-
-              <div class="col-span-2 sm:col-span-1 flex items-center gap-2.5 bg-white/5 border border-white/10 rounded-xl p-2.5 text-left">
-                <div class="w-8 h-8 rounded-lg bg-emerald/30 text-honey flex items-center justify-center shrink-0">
-                  <i class="fa-solid fa-rotate-left text-base"></i>
-                </div>
-                <div>
-                  <h4 class="text-xs font-bold text-white">মানিব্যাক গ্যারান্টি</h4>
-                  <p class="text-[11px] text-white/70">পছন্দ না হলে ফেরত</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Big Action CTAs -->
-            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
-              <a href="#checkout" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-honey hover:bg-honey-dark text-forest font-extrabold text-base sm:text-lg px-8 py-4 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
-                <i class="fa-solid fa-bag-shopping text-xl"></i>
-                <span>🛒 এখনই অর্ডার করুন (ক্যাশ অন ডেলিভারি)</span>
+            <!-- Single High-Converting Primary CTA -->
+            <div class="pt-3 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+              <a href="#products" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-honey hover:bg-honey-dark text-forest font-extrabold text-base sm:text-lg px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
+                <i class="fa-solid fa-basket-shopping text-xl"></i>
+                <span>🛒 পণ্যসমূহ দেখুন ও অর্ডার করুন</span>
+                <i class="fa-solid fa-arrow-down text-sm"></i>
               </a>
-
-              <button type="button" onclick="openAIChat('আমি ফ্রেশি ফুডের পণ্য সম্পর্কে বিস্তারিত জানতে চাই')" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-emerald/30 hover:bg-emerald/50 text-white font-semibold text-base px-6 py-4 rounded-2xl border border-emerald/40 transition-all">
-                <i class="fa-solid fa-robot text-honey"></i>
-                <span>এআই সহায়িকার সাথে কথা বলুন</span>
-              </button>
             </div>
 
             <!-- Social Proof Counter -->
@@ -451,220 +414,6 @@
               </button>
               <span class="text-xs text-white/70 mt-2">সীমিত সময়ের জন্য অফারটি প্রযোজ্য</span>
             </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ==================== 6. INSTANT 1-CLICK COD CHECKOUT FORM ==================== -->
-    <section id="checkout" class="py-16 sm:py-24 bg-creamDark relative">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <!-- Urgency Badge & Form Header -->
-        <div class="text-center max-w-2xl mx-auto mb-10">
-          <div class="inline-flex items-center gap-2 bg-emerald/10 text-forest border border-emerald/20 text-xs sm:text-sm font-bold px-4 py-1.5 rounded-full mb-3 shadow-sm">
-            <i class="fa-solid fa-truck-fast text-emerald"></i>
-            <span>সীমিত স্টক — সারাদেশে দ্রুত ক্যাশ অন ডেলিভারি সুবিধা</span>
-          </div>
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-forest">
-            অর্ডার নিশ্চিত করতে আপনার তথ্য দিন
-          </h2>
-          <p class="mt-2 text-sm text-gray-600">
-            কোনো অগ্রিম টাকা দিতে হবে না। পার্সেল হাতে পেয়ে চেক করে ডেলিভারিম্যানকে মূল্য পরিশোধ করবেন।
-          </p>
-        </div>
-
-        <!-- Checkout Card -->
-        <div class="bg-white rounded-3xl shadow-2xl border-2 border-forest/20 overflow-hidden">
-          
-          <!-- Banner Header of Checkout -->
-          <div class="bg-forest text-white p-5 sm:p-6 flex flex-col sm:flex-row justify-between items-center gap-3">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-honey/20 text-honey flex items-center justify-center font-bold text-lg">
-                <i class="fa-solid fa-receipt"></i>
-              </div>
-              <div>
-                <h3 class="text-lg font-bold">ক্যাশ অন ডেলিভারি (COD) চেকআউট</h3>
-                <p class="text-xs text-white/80">পণ্য হাতে পেয়ে দেখে মূল্য পরিশোধ করুন</p>
-              </div>
-            </div>
-            <div class="flex items-center gap-2 text-xs bg-forest-dark px-3.5 py-1.5 rounded-xl border border-white/10">
-              <i class="fa-solid fa-shield-halved text-honey"></i>
-              <span>১০০% নিরাপদ ডেলিভারি ও যাচাই করে মূল্য পরিশোধ</span>
-            </div>
-          </div>
-
-          <div class="p-6 sm:p-10 space-y-8">
-            
-            <!-- STEP 1: SELECTED ITEMS ORDER SUMMARY -->
-            <div>
-              <div class="flex items-center justify-between mb-4 pb-2 border-b border-gray-100">
-                <h4 class="font-bold text-forest text-base sm:text-lg flex items-center gap-2">
-                  <span class="w-6 h-6 rounded-full bg-forest text-white text-xs flex items-center justify-center font-eng">১</span>
-                  <span>আপনার নির্বাচিত পণ্যসমূহ:</span>
-                </h4>
-                <a href="#products" class="text-xs font-semibold text-leaf hover:underline flex items-center gap-1">
-                  <i class="fa-solid fa-plus-circle"></i> আরও পণ্য যোগ করুন
-                </a>
-              </div>
-
-              <!-- Cart Items List Container -->
-              <div id="cartItemsList" class="space-y-3">
-                <!-- Dynamically generated by JS -->
-              </div>
-
-              <!-- Quick Add Product Shortcuts -->
-              <div class="mt-4 pt-3 border-t border-dashed border-gray-200">
-                <p class="text-xs text-gray-500 mb-2 font-medium">প্যাকেজে আরও কিছু যোগ করতে চান? (১-ক্লিকে যোগ করুন):</p>
-                <div id="quickAddContainer" class="flex flex-wrap gap-2">
-                  <!-- Dynamically populated -->
-                </div>
-              </div>
-            </div>
-
-            <!-- STEP 2: DELIVERY ZONE SELECTION -->
-            <div>
-              <h4 class="font-bold text-forest text-base sm:text-lg flex items-center gap-2 mb-4 pb-2 border-b border-gray-100">
-                <span class="w-6 h-6 rounded-full bg-forest text-white text-xs flex items-center justify-center font-eng">২</span>
-                <span>ডেলিভারি এরিয়া নির্বাচন করুন:</span>
-              </h4>
-
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <!-- Inside Dhaka -->
-                <label id="zoneLabelDhaka" class="relative flex items-center justify-between p-4 rounded-2xl border-2 border-forest bg-forest/5 cursor-pointer transition-all duration-200">
-                  <div class="flex items-center gap-3">
-                    <input type="radio" name="deliveryZone" value="dhaka" checked onchange="updateDeliveryZone('dhaka')" class="w-5 h-5 text-forest accent-forest">
-                    <div>
-                      <span class="font-bold text-sm sm:text-base text-forest block">ঢাকার ভেতরে</span>
-                      <span class="text-xs text-gray-500">হোম ডেলিভারি (২-৩ দিন)</span>
-                    </div>
-                  </div>
-                  <div class="text-right">
-                    <span id="displayZoneFeeDhaka" class="text-base font-extrabold text-forest font-eng">৳ ৬০</span>
-                  </div>
-                </label>
-
-                <!-- Outside Dhaka -->
-                <label id="zoneLabelOutside" class="relative flex items-center justify-between p-4 rounded-2xl border-2 border-gray-200 hover:border-gray-400 bg-white cursor-pointer transition-all duration-200">
-                  <div class="flex items-center gap-3">
-                    <input type="radio" name="deliveryZone" value="outside" onchange="updateDeliveryZone('outside')" class="w-5 h-5 text-forest accent-forest">
-                    <div>
-                      <span class="font-bold text-sm sm:text-base text-gray-800 block">ঢাকার বাইরে</span>
-                      <span class="text-xs text-gray-500">সারা দেশে কুরিয়ার (৩-৪ দিন)</span>
-                    </div>
-                  </div>
-                  <div class="text-right">
-                    <span id="displayZoneFeeOutside" class="text-base font-extrabold text-forest font-eng">৳ ১২০</span>
-                  </div>
-                </label>
-              </div>
-            </div>
-
-            <!-- STEP 3: CUSTOMER CONTACT DETAILS FORM -->
-            <form id="orderForm" onsubmit="handleOrderSubmit(event)" class="space-y-5">
-              <h4 class="font-bold text-forest text-base sm:text-lg flex items-center gap-2 pb-2 border-b border-gray-100">
-                <span class="w-6 h-6 rounded-full bg-forest text-white text-xs flex items-center justify-center font-eng">৩</span>
-                <span>আপনার ডেলিভারি তথ্য দিন:</span>
-              </h4>
-
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Full Name -->
-                <div>
-                  <label for="custName" class="block text-xs sm:text-sm font-bold text-gray-800 mb-1.5">
-                    আপনার সম্পূর্ণ নাম <span class="text-red-500">*</span>
-                  </label>
-                  <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
-                      <i class="fa-solid fa-user"></i>
-                    </div>
-                    <input type="text" id="custName" required placeholder="উদা: মোঃ আরিফুল ইসলাম" 
-                           class="w-full pl-10 pr-4 py-3 bg-creamDark border border-gray-300 rounded-xl focus:ring-2 focus:ring-forest focus:border-forest text-sm font-medium transition-all outline-none">
-                  </div>
-                </div>
-
-                <!-- Phone Number -->
-                <div>
-                  <label for="custPhone" class="block text-xs sm:text-sm font-bold text-gray-800 mb-1.5">
-                    মোবাইল নম্বর <span class="text-red-500">* (সঠিক ১১ ডিজিট)</span>
-                  </label>
-                  <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
-                      <i class="fa-solid fa-phone"></i>
-                    </div>
-                    <input type="tel" id="custPhone" required placeholder="01XXXXXXXXX" maxlength="11"
-                           pattern="^01[3-9]\d{8}$"
-                           class="w-full pl-10 pr-4 py-3 bg-creamDark border border-gray-300 rounded-xl focus:ring-2 focus:ring-forest focus:border-forest text-sm font-eng font-medium transition-all outline-none">
-                  </div>
-                  <span id="phoneError" class="text-xs text-red-500 hidden mt-1">অনুগ্রহ করে সঠিক ১১ ডিজিটের বাংলাদেশী মোবাইল নম্বর দিন</span>
-                </div>
-              </div>
-
-              <!-- Full Address -->
-              <div>
-                <label for="custAddress" class="block text-xs sm:text-sm font-bold text-gray-800 mb-1.5">
-                  সম্পূর্ণ ডেলিভারি ঠিকানা <span class="text-red-500">* (জেলা, থানা, বাসা ও রোড নং)</span>
-                </label>
-                <div class="relative">
-                  <div class="absolute top-3.5 left-3.5 pointer-events-none text-gray-400">
-                    <i class="fa-solid fa-location-dot"></i>
-                  </div>
-                  <textarea id="custAddress" required rows="2" placeholder="উদা: বাড়ি #১২, রোড #০৫, সেক্টর #৩, উত্তরা, ঢাকা" 
-                            class="w-full pl-10 pr-4 py-3 bg-creamDark border border-gray-300 rounded-xl focus:ring-2 focus:ring-forest focus:border-forest text-sm font-medium transition-all outline-none"></textarea>
-                </div>
-              </div>
-
-              <!-- Optional Special Note -->
-              <div>
-                <label for="custNote" class="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5">
-                  স্পেশাল নোট (ঐচ্ছিক)
-                </label>
-                <input type="text" id="custNote" placeholder="উদা: অফিস টাইমে কল করবেন / গিফট প্যাকেজিং লাগবে" 
-                       class="w-full px-4 py-2.5 bg-creamDark border border-gray-300 rounded-xl focus:ring-2 focus:ring-forest focus:border-forest text-xs sm:text-sm transition-all outline-none">
-              </div>
-
-              <!-- STEP 4: LIVE CALCULATION INVOICE BOX -->
-              <div class="bg-forest-dark text-white rounded-2xl p-5 sm:p-6 space-y-3 mt-6 border border-honey/30">
-                <div class="flex justify-between items-center text-xs sm:text-sm text-white/80">
-                  <span>পণ্যের মূল্য (Subtotal):</span>
-                  <span id="calcSubtotal" class="font-eng font-bold text-base text-white">৳ ৯৫০</span>
-                </div>
-                <div class="flex justify-between items-center text-xs sm:text-sm text-white/80">
-                  <span id="calcDeliveryLabel">ডেলিভারি চার্জ (ঢাকার ভেতরে):</span>
-                  <span id="calcDeliveryCharge" class="font-eng font-bold text-base text-white">৳ ৬০</span>
-                </div>
-                <div id="calcDiscountRow" class="hidden flex justify-between items-center text-xs sm:text-sm text-honey-light">
-                  <span>বিশেষ ছাড় (কম্বো ডিসকাউন্ট):</span>
-                  <span id="calcDiscount" class="font-eng font-bold text-base text-honey">- ৳ ২০০</span>
-                </div>
-                <div class="pt-3 border-t border-white/20 flex justify-between items-center">
-                  <div>
-                    <span class="text-sm sm:text-base font-extrabold text-honey block">সর্বমোট প্রদেয় টাকা:</span>
-                    <span class="text-[11px] text-white/70">পণ্য হাতে পেয়ে পরিশোধ করবেন</span>
-                  </div>
-                  <span id="calcGrandTotal" class="text-2xl sm:text-3xl font-black text-honey font-eng">৳ ১,০১০</span>
-                </div>
-              </div>
-
-              <!-- HUGE CONVERTING ORDER BUTTON -->
-              <div class="pt-4">
-                <button type="submit" 
-                        id="submitOrderBtn"
-                        class="w-full py-4 sm:py-5 px-6 rounded-2xl bg-honey hover:bg-honey-dark text-forest font-black text-lg sm:text-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 transform hover:-translate-y-0.5">
-                  <i class="fa-solid fa-circle-check text-2xl text-forest"></i>
-                  <span>অর্ডার কনফার্ম করুন — <span id="btnTotalDisplay" class="font-eng">৳ ১,০১০</span> (ক্যাশ অন ডেলিভারি)</span>
-                </button>
-                <div class="text-center mt-3 text-xs text-gray-500 flex items-center justify-center gap-3">
-                  <span>🔒 তথ্য সম্পূর্ণ সুরক্ষিত</span>
-                  <span>•</span>
-                  <span>💵 কোনো অগ্রিম পেমেন্ট লাগবে না</span>
-                  <span>•</span>
-                  <span>🔄 ৭ দিনের রিটার্ন গ্যারান্টি</span>
-                </div>
-              </div>
-
-            </form>
-
           </div>
         </div>
 
@@ -943,30 +692,220 @@
       </div>
     </section>
 
-    <!-- ==================== 10. FINAL BOTTOM CONVERSION CTA BANNER ==================== -->
-    <section class="bg-forest-dark text-white py-14 sm:py-20 relative overflow-hidden border-t-4 border-honey">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-6">
-        <div class="w-16 h-16 rounded-full bg-honey/20 border-2 border-honey text-honey flex items-center justify-center mx-auto text-2xl shadow-glow-gold">
-          <i class="fa-solid fa-gift"></i>
+    <!-- ==================== 6. INSTANT 1-CLICK COD CHECKOUT FORM ==================== -->
+    <section id="checkout" class="py-16 sm:py-24 bg-creamDark relative">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Urgency Badge & Form Header -->
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          <div class="inline-flex items-center gap-2 bg-emerald/10 text-forest border border-emerald/20 text-xs sm:text-sm font-bold px-4 py-1.5 rounded-full mb-3 shadow-sm">
+            <i class="fa-solid fa-truck-fast text-emerald"></i>
+            <span>সীমিত স্টক — সারাদেশে দ্রুত ক্যাশ অন ডেলিভারি সুবিধা</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-forest">
+            অর্ডার নিশ্চিত করতে আপনার তথ্য দিন
+          </h2>
+          <p class="mt-2 text-sm text-gray-600">
+            কোনো অগ্রিম টাকা দিতে হবে না। পার্সেল হাতে পেয়ে চেক করে ডেলিভারিম্যানকে মূল্য পরিশোধ করবেন।
+          </p>
         </div>
-        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
-          আজই শুরু হোক আপনার পরিবারের খাঁটি ও সুস্থ জীবনযাত্রার অভ্যাস
-        </h2>
-        <p class="text-sm sm:text-base text-cream/90 max-w-2xl mx-auto">
-          কোনো অগ্রিম পেমেন্ট ছাড়াই সারা বাংলাদেশে হোম ডেলিভারি পেতে এখনই নিচের বাটনে ক্লিক করে আপনার অর্ডার নিশ্চিত করুন।
-        </p>
-        <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a href="#checkout" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-honey hover:bg-honey-dark text-forest font-black text-base sm:text-lg px-8 py-4 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]">
-            <i class="fa-solid fa-cart-shopping text-xl"></i>
-            <span>🛒 সরাসরি অর্ডার করুন (ক্যাশ অন ডেলিভারি)</span>
-          </a>
-          <a href="https://wa.me/8801610594042?text=Hello%20Freshy%20Food,%20আমি%20অর্ডার%20করতে%20চাই।" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebd59] text-white font-bold text-base px-6 py-4 rounded-2xl shadow-md transition-all">
-            <i class="fa-brands fa-whatsapp text-xl"></i>
-            <span>হোয়াটসঅ্যাপে অর্ডার করুন</span>
-          </a>
+
+        <!-- Checkout Card -->
+        <div class="bg-white rounded-3xl shadow-2xl border-2 border-forest/20 overflow-hidden">
+          
+          <!-- Banner Header of Checkout -->
+          <div class="bg-forest text-white p-5 sm:p-6 flex flex-col sm:flex-row justify-between items-center gap-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-honey/20 text-honey flex items-center justify-center font-bold text-lg">
+                <i class="fa-solid fa-receipt"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold">ক্যাশ অন ডেলিভারি (COD) চেকআউট</h3>
+                <p class="text-xs text-white/80">পণ্য হাতে পেয়ে দেখে মূল্য পরিশোধ করুন</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 text-xs bg-forest-dark px-3.5 py-1.5 rounded-xl border border-white/10">
+              <i class="fa-solid fa-shield-halved text-honey"></i>
+              <span>১০০% নিরাপদ ডেলিভারি ও যাচাই করে মূল্য পরিশোধ</span>
+            </div>
+          </div>
+
+          <div class="p-6 sm:p-10 space-y-8">
+            
+            <!-- STEP 1: SELECTED ITEMS ORDER SUMMARY -->
+            <div>
+              <div class="flex items-center justify-between mb-4 pb-2 border-b border-gray-100">
+                <h4 class="font-bold text-forest text-base sm:text-lg flex items-center gap-2">
+                  <span class="w-6 h-6 rounded-full bg-forest text-white text-xs flex items-center justify-center font-eng">১</span>
+                  <span>আপনার নির্বাচিত পণ্যসমূহ:</span>
+                </h4>
+                <a href="#products" class="text-xs font-semibold text-leaf hover:underline flex items-center gap-1">
+                  <i class="fa-solid fa-plus-circle"></i> আরও পণ্য যোগ করুন
+                </a>
+              </div>
+
+              <!-- Cart Items List Container -->
+              <div id="cartItemsList" class="space-y-3">
+                <!-- Dynamically generated by JS -->
+              </div>
+
+              <!-- Quick Add Product Shortcuts -->
+              <div class="mt-4 pt-3 border-t border-dashed border-gray-200">
+                <p class="text-xs text-gray-500 mb-2 font-medium">প্যাকেজে আরও কিছু যোগ করতে চান? (১-ক্লিকে যোগ করুন):</p>
+                <div id="quickAddContainer" class="flex flex-wrap gap-2">
+                  <!-- Dynamically populated -->
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 2: DELIVERY ZONE SELECTION -->
+            <div>
+              <h4 class="font-bold text-forest text-base sm:text-lg flex items-center gap-2 mb-4 pb-2 border-b border-gray-100">
+                <span class="w-6 h-6 rounded-full bg-forest text-white text-xs flex items-center justify-center font-eng">২</span>
+                <span>ডেলিভারি এরিয়া নির্বাচন করুন:</span>
+              </h4>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Inside Dhaka -->
+                <label id="zoneLabelDhaka" class="relative flex items-center justify-between p-4 rounded-2xl border-2 border-forest bg-forest/5 cursor-pointer transition-all duration-200">
+                  <div class="flex items-center gap-3">
+                    <input type="radio" name="deliveryZone" value="dhaka" checked onchange="updateDeliveryZone('dhaka')" class="w-5 h-5 text-forest accent-forest">
+                    <div>
+                      <span class="font-bold text-sm sm:text-base text-forest block">ঢাকার ভেতরে</span>
+                      <span class="text-xs text-gray-500">হোম ডেলিভারি (২-৩ দিন)</span>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <span id="displayZoneFeeDhaka" class="text-base font-extrabold text-forest font-eng">৳ ৬০</span>
+                  </div>
+                </label>
+
+                <!-- Outside Dhaka -->
+                <label id="zoneLabelOutside" class="relative flex items-center justify-between p-4 rounded-2xl border-2 border-gray-200 hover:border-gray-400 bg-white cursor-pointer transition-all duration-200">
+                  <div class="flex items-center gap-3">
+                    <input type="radio" name="deliveryZone" value="outside" onchange="updateDeliveryZone('outside')" class="w-5 h-5 text-forest accent-forest">
+                    <div>
+                      <span class="font-bold text-sm sm:text-base text-gray-800 block">ঢাকার বাইরে</span>
+                      <span class="text-xs text-gray-500">সারা দেশে কুরিয়ার (৩-৪ দিন)</span>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <span id="displayZoneFeeOutside" class="text-base font-extrabold text-forest font-eng">৳ ১২০</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- STEP 3: CUSTOMER CONTACT DETAILS FORM -->
+            <form id="orderForm" onsubmit="handleOrderSubmit(event)" class="space-y-5">
+              <h4 class="font-bold text-forest text-base sm:text-lg flex items-center gap-2 pb-2 border-b border-gray-100">
+                <span class="w-6 h-6 rounded-full bg-forest text-white text-xs flex items-center justify-center font-eng">৩</span>
+                <span>আপনার ডেলিভারি তথ্য দিন:</span>
+              </h4>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Full Name -->
+                <div>
+                  <label for="custName" class="block text-xs sm:text-sm font-bold text-gray-800 mb-1.5">
+                    আপনার সম্পূর্ণ নাম <span class="text-red-500">*</span>
+                  </label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+                      <i class="fa-solid fa-user"></i>
+                    </div>
+                    <input type="text" id="custName" required placeholder="উদা: মোঃ আরিফুল ইসলাম" 
+                           class="w-full pl-10 pr-4 py-3 bg-creamDark border border-gray-300 rounded-xl focus:ring-2 focus:ring-forest focus:border-forest text-sm font-medium transition-all outline-none">
+                  </div>
+                </div>
+
+                <!-- Phone Number -->
+                <div>
+                  <label for="custPhone" class="block text-xs sm:text-sm font-bold text-gray-800 mb-1.5">
+                    মোবাইল নম্বর <span class="text-red-500">* (সঠিক ১১ ডিজিট)</span>
+                  </label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+                      <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <input type="tel" id="custPhone" required placeholder="01XXXXXXXXX" maxlength="11"
+                           pattern="^01[3-9]\d{8}$"
+                           class="w-full pl-10 pr-4 py-3 bg-creamDark border border-gray-300 rounded-xl focus:ring-2 focus:ring-forest focus:border-forest text-sm font-eng font-medium transition-all outline-none">
+                  </div>
+                  <span id="phoneError" class="text-xs text-red-500 hidden mt-1">অনুগ্রহ করে সঠিক ১১ ডিজিটের বাংলাদেশী মোবাইল নম্বর দিন</span>
+                </div>
+              </div>
+
+              <!-- Full Address -->
+              <div>
+                <label for="custAddress" class="block text-xs sm:text-sm font-bold text-gray-800 mb-1.5">
+                  সম্পূর্ণ ডেলিভারি ঠিকানা <span class="text-red-500">* (জেলা, থানা, বাসা ও রোড নং)</span>
+                </label>
+                <div class="relative">
+                  <div class="absolute top-3.5 left-3.5 pointer-events-none text-gray-400">
+                    <i class="fa-solid fa-location-dot"></i>
+                  </div>
+                  <textarea id="custAddress" required rows="2" placeholder="উদা: বাড়ি #১২, রোড #০৫, সেক্টর #৩, উত্তরা, ঢাকা" 
+                            class="w-full pl-10 pr-4 py-3 bg-creamDark border border-gray-300 rounded-xl focus:ring-2 focus:ring-forest focus:border-forest text-sm font-medium transition-all outline-none"></textarea>
+                </div>
+              </div>
+
+              <!-- Optional Special Note -->
+              <div>
+                <label for="custNote" class="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5">
+                  স্পেশাল নোট (ঐচ্ছিক)
+                </label>
+                <input type="text" id="custNote" placeholder="উদা: অফিস টাইমে কল করবেন / গিফট প্যাকেজিং লাগবে" 
+                       class="w-full px-4 py-2.5 bg-creamDark border border-gray-300 rounded-xl focus:ring-2 focus:ring-forest focus:border-forest text-xs sm:text-sm transition-all outline-none">
+              </div>
+
+              <!-- STEP 4: LIVE CALCULATION INVOICE BOX -->
+              <div class="bg-forest-dark text-white rounded-2xl p-5 sm:p-6 space-y-3 mt-6 border border-honey/30">
+                <div class="flex justify-between items-center text-xs sm:text-sm text-white/80">
+                  <span>পণ্যের মূল্য (Subtotal):</span>
+                  <span id="calcSubtotal" class="font-eng font-bold text-base text-white">৳ ০</span>
+                </div>
+                <div class="flex justify-between items-center text-xs sm:text-sm text-white/80">
+                  <span id="calcDeliveryLabel">ডেলিভারি চার্জ (ঢাকার ভেতরে):</span>
+                  <span id="calcDeliveryCharge" class="font-eng font-bold text-base text-white">৳ ০</span>
+                </div>
+                <div id="calcDiscountRow" class="hidden flex justify-between items-center text-xs sm:text-sm text-honey-light">
+                  <span>বিশেষ ছাড় (কম্বো ডিসকাউন্ট):</span>
+                  <span id="calcDiscount" class="font-eng font-bold text-base text-honey">- ৳ ০</span>
+                </div>
+                <div class="pt-3 border-t border-white/20 flex justify-between items-center">
+                  <div>
+                    <span class="text-sm sm:text-base font-extrabold text-honey block">সর্বমোট প্রদেয় টাকা:</span>
+                    <span class="text-[11px] text-white/70">পণ্য হাতে পেয়ে পরিশোধ করবেন</span>
+                  </div>
+                  <span id="calcGrandTotal" class="text-2xl sm:text-3xl font-black text-honey font-eng">৳ ০</span>
+                </div>
+              </div>
+
+              <!-- HUGE CONVERTING ORDER BUTTON -->
+              <div class="pt-4">
+                <button type="submit" 
+                        id="submitOrderBtn"
+                        class="w-full py-4 sm:py-5 px-6 rounded-2xl bg-honey hover:bg-honey-dark text-forest font-black text-lg sm:text-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 transform hover:-translate-y-0.5">
+                  <i class="fa-solid fa-circle-check text-2xl text-forest"></i>
+                  <span>অর্ডার কনফার্ম করুন — <span id="btnTotalDisplay" class="font-eng">৳ ০</span> (ক্যাশ অন ডেলিভারি)</span>
+                </button>
+                <div class="text-center mt-3 text-xs text-gray-500 flex items-center justify-center gap-3">
+                  <span>🔒 তথ্য সম্পূর্ণ সুরক্ষিত</span>
+                  <span>•</span>
+                  <span>💵 কোনো অগ্রিম পেমেন্ট লাগবে না</span>
+                  <span>•</span>
+                  <span>🔄 ৭ দিনের রিটার্ন গ্যারান্টি</span>
+                </div>
+              </div>
+
+            </form>
+
+          </div>
         </div>
+
       </div>
     </section>
+
   </main>
 
   <!-- ==================== 11. FOOTER SECTION ==================== -->
@@ -1020,11 +959,6 @@
             <li><a href="#reviews" class="hover:text-honey transition">গ্রাহকদের রিভিউ</a></li>
             <li><a href="#faq" class="hover:text-honey transition">সচরাচর প্রশ্নাবলী (FAQ)</a></li>
             <li><a href="#checkout" class="hover:text-honey transition">ডেলিভারি ও রিটার্ন পলিসি</a></li>
-            <li>
-              <a href="admin.html" class="hover:text-honey transition flex items-center gap-1.5 text-white/90 font-medium">
-                <i class="fa-solid fa-lock text-xs text-honey"></i> অ্যাডমিন ড্যাশবোর্ড
-              </a>
-            </li>
           </ul>
         </div>
 
@@ -1182,7 +1116,7 @@
         <button type="button" onclick="sendQuickQuestion('শীতকালে মধু জমে যাওয়া কি খাঁটি হওয়ার প্রমাণ?')" class="bg-white hover:bg-forest hover:text-white text-gray-700 px-2.5 py-1 rounded-full border border-gray-300 transition shrink-0">
           ❄️ শীতে মধু জমে কেন?
         </button>
-        <button type="button" onclick="startAIOrderFlow()" class="bg-honey hover:bg-honey-dark text-forest font-bold px-3 py-1 rounded-full shadow-sm transition shrink-0">
+        <button type="button" onclick="aiShowProductOptions()" class="bg-honey hover:bg-honey-dark text-forest font-bold px-3 py-1 rounded-full shadow-sm transition shrink-0">
           🛒 ১-ক্লিক অর্ডার
         </button>
       </div>
@@ -1200,7 +1134,7 @@
   </aside>
 
   <!-- ==================== 14. MOBILE STICKY BOTTOM ACTION BAR ==================== -->
-  <aside aria-label="Mobile Sticky Bottom Action Bar" id="mobileActionBar" class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-gray-200 px-4 py-2 shadow-2xl flex md:hidden items-center justify-between gap-3">
+  <aside aria-label="Mobile Sticky Bottom Action Bar" id="mobileActionBar" class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-gray-200 px-4 py-2 shadow-2xl flex md:hidden items-center justify-between gap-3 transition-all duration-300 transform">
     <!-- Cart / Total -->
     <a href="#checkout" class="flex items-center gap-2.5 group">
       <div class="w-9 h-9 rounded-full bg-forest text-honey flex items-center justify-center font-bold text-sm shrink-0">
@@ -1208,7 +1142,7 @@
       </div>
       <div>
         <span class="text-[11px] text-gray-500 block leading-none">সর্বমোট:</span>
-        <span id="mobileBarTotal" class="text-base font-black text-forest font-eng">৳ ১,০১০</span>
+        <span id="mobileBarTotal" class="text-base font-black text-forest font-eng">৳ ০</span>
       </div>
     </a>
     
@@ -1223,10 +1157,11 @@
         <i class="fa-brands fa-whatsapp"></i>
       </a>
       <!-- Primary Order CTA -->
-      <a href="#checkout" 
+      <a href="#products" 
+         id="mobileOrderCtaBtn"
          class="bg-forest hover:bg-forest-dark text-white font-extrabold text-sm px-5 py-2.5 rounded-xl shadow-md flex items-center gap-2 whitespace-nowrap active:scale-95 transition">
-        <span>🛒 অর্ডার করুন</span>
-        <i class="fa-solid fa-arrow-right text-xs"></i>
+        <span>🛒 পণ্য নির্বাচন করুন</span>
+        <i class="fa-solid fa-arrow-up text-xs"></i>
       </a>
     </div>
   </aside>
@@ -1398,9 +1333,7 @@
     let comboDiscount = parseInt(localStorage.getItem('freshy_combo_discount') || '200', 10);
 
     // Cart State
-    let cart = [
-      { productId: 'honey', variantIndex: 1, qty: 1 }
-    ];
+    let cart = [];
     let deliveryZone = 'dhaka';
 
     // Helper: Format Price e.g. "৳ ৯৫০"
@@ -1429,6 +1362,22 @@
       renderDynamicProductGrid();
       renderQuickAddShortcuts();
       renderCart();
+
+      // Auto-hide mobile bottom bar when checkout section is in viewport
+      const checkoutEl = document.getElementById('checkout');
+      const mobileBar = document.getElementById('mobileActionBar');
+      if (checkoutEl && mobileBar && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              mobileBar.classList.add('translate-y-full', 'opacity-0', 'pointer-events-none');
+            } else {
+              mobileBar.classList.remove('translate-y-full', 'opacity-0', 'pointer-events-none');
+            }
+          });
+        }, { threshold: 0.15 });
+        observer.observe(checkoutEl);
+      }
     });
 
     // Real-time synchronization when updated from Admin Dashboard
@@ -1467,16 +1416,7 @@
         const selectedVar = p.variants[selectedIdx] || p.variants[0];
         const lineTotal = selectedVar.price * currentQty;
 
-        const pointsHTML = (p.points || [
-          '১০০% প্রাকৃতিক ও পুষ্টিকর উপাদান',
-          'কোনো কেমিক্যাল বা প্রিজারভেটিভ নেই',
-          'সরাসরি কৃষকদের থেকে সংগৃহীত'
-        ]).map(pt => `
-          <li class="flex items-center gap-2">
-            <i class="fa-solid fa-circle-check text-emerald text-[13px]"></i>
-            <span>${pt}</span>
-          </li>
-        `).join('');
+        const singleBenefit = (p.points && p.points.length > 0) ? p.points[0] : (p.features || '১০০% প্রাকৃতিক ও পুষ্টিকর উপাদান');
 
         const variantsHTML = p.variants.map((v, vIdx) => {
           const isSelected = (vIdx === selectedIdx);
@@ -1485,33 +1425,30 @@
             <button type="button" 
                     onclick="selectVariant('${id}', ${vIdx})"
                     id="btn-${id}-${vIdx}"
-                    class="variant-btn-${id} relative border-2 ${isSelected ? 'border-forest bg-forest/5 text-forest' : 'border-gray-200 hover:border-forest text-gray-700'} font-bold py-2 px-3 rounded-xl text-xs flex flex-col items-center justify-center transition-all">
+                    class="variant-btn-${id} relative border ${isSelected ? 'border-forest bg-forest/5 text-forest ring-1 ring-forest' : 'border-gray-200 hover:border-forest/40 text-gray-700 bg-white'} font-bold py-1.5 px-2.5 rounded-xl text-xs flex flex-col items-center justify-center transition-all">
               ${popularTag}
-              <span>${v.size}</span>
-              <span class="${isSelected ? 'text-honey-amber' : 'text-gray-900'} font-eng text-sm font-extrabold">৳ ${v.price}</span>
+              <span class="text-[11px] text-gray-600">${v.size}</span>
+              <span class="${isSelected ? 'text-honey-amber' : 'text-gray-900'} font-eng text-xs font-extrabold">৳ ${v.price}</span>
             </button>
           `;
         }).join('');
 
         return `
-          <div class="bg-white rounded-3xl overflow-hidden border border-amber-900/10 shadow-premium hover:shadow-xl transition-all duration-300 flex flex-col group" id="card-${id}">
-            <!-- Product Image & Badges -->
+          <div class="bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-amber-900/10 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group" id="card-${id}">
+            <!-- Product Image & Single Clean Badge -->
             <div class="relative aspect-square overflow-hidden bg-creamDark">
               <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
               
-              <div class="absolute top-4 left-4 bg-honey text-forest font-bold text-xs px-3 py-1 rounded-full shadow-md flex items-center gap-1.5">
-                ${p.badge || '🌿 অর্গানিক'}
-              </div>
-              <div class="absolute top-4 right-4 bg-forest/90 text-white font-bold text-xs px-2.5 py-1 rounded-full backdrop-blur-md">
-                ১০০% খাঁটি
+              <div class="absolute top-3 left-3 bg-honey/95 text-forest font-bold text-xs px-3 py-1 rounded-full shadow flex items-center gap-1.5 backdrop-blur-sm">
+                ${p.badge || '🌿 ১০০% খাঁটি ও অর্গানিক'}
               </div>
             </div>
 
-            <!-- Content Area -->
-            <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+            <!-- Compact Content Area -->
+            <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3">
               <div>
                 <div class="flex items-center justify-between gap-2 mb-1">
-                  <span class="text-xs font-semibold text-emerald">প্রকৃতির খাঁটি উপহার</span>
+                  <span class="text-[11px] font-semibold text-emerald">প্রকৃতির খাঁটি উপহার</span>
                   <div class="flex items-center text-honey text-xs">
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
@@ -1522,46 +1459,48 @@
                   </div>
                 </div>
 
-                <h3 class="text-xl font-bold text-forest group-hover:text-leaf transition-colors">
+                <h3 class="text-base sm:text-lg font-bold text-forest group-hover:text-leaf transition-colors leading-snug">
                   ${p.name}
                 </h3>
                 
-                <p class="text-xs sm:text-sm text-gray-600 mt-2 leading-relaxed">
+                <p class="text-xs text-gray-600 mt-1 leading-relaxed line-clamp-2">
                   ${p.features || 'প্রকৃতির সেরা পুষ্টিকর খাবার আপনার পরিবারের সুস্বাস্থ্যের নিশ্চয়তায়।'}
                 </p>
 
-                <ul class="mt-3 space-y-1.5 text-xs text-gray-600">
-                  ${pointsHTML}
-                </ul>
+                <!-- Condensed Single-Line Health Highlight -->
+                <div class="mt-2.5 flex items-center gap-2 bg-emerald/10 text-forest text-xs font-semibold px-2.5 py-1.5 rounded-xl border border-emerald/20">
+                  <i class="fa-solid fa-circle-check text-emerald text-sm shrink-0"></i>
+                  <span class="truncate">${singleBenefit}</span>
+                </div>
               </div>
 
-              <!-- Package Size / Variant Selector -->
-              <div class="pt-3 border-t border-gray-100">
-                <label class="block text-xs font-bold text-gray-700 mb-2">সাইজ নির্বাচন করুন:</label>
+              <!-- Sleek Package Size / Variant Selector -->
+              <div class="pt-2 border-t border-gray-100">
+                <label class="block text-[11px] font-bold text-gray-700 mb-1.5">সাইজ নির্বাচন করুন:</label>
                 <div class="grid grid-cols-${p.variants.length > 1 ? 2 : 1} gap-2">
                   ${variantsHTML}
                 </div>
               </div>
 
               <!-- Quantity & Buy Action -->
-              <div class="space-y-2.5 pt-1">
-                <div class="flex items-center justify-between gap-3">
+              <div class="space-y-2 pt-1">
+                <div class="flex items-center justify-between gap-2">
                   <span class="text-xs font-bold text-gray-600">পরিমাণ:</span>
-                  <div class="flex items-center border border-gray-300 rounded-xl overflow-hidden bg-creamDark">
-                    <button type="button" onclick="changeQty('${id}', -1)" class="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition font-bold text-base">-</button>
-                    <span id="qty-${id}" class="w-10 text-center font-bold text-sm font-eng">${currentQty}</span>
-                    <button type="button" onclick="changeQty('${id}', 1)" class="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition font-bold text-base">+</button>
+                  <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden bg-creamDark">
+                    <button type="button" onclick="changeQty('${id}', -1)" class="w-7 h-7 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition font-bold text-sm">-</button>
+                    <span id="qty-${id}" class="w-8 text-center font-bold text-xs font-eng">${currentQty}</span>
+                    <button type="button" onclick="changeQty('${id}', 1)" class="w-7 h-7 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition font-bold text-sm">+</button>
                   </div>
                   <div class="text-right flex-1">
-                    <span class="text-[11px] text-gray-500 block">মোট মূল্য:</span>
-                    <span id="total-${id}" class="text-base font-extrabold text-forest font-eng">৳ ${lineTotal}</span>
+                    <span class="text-[10px] text-gray-500 block leading-tight">মোট মূল্য:</span>
+                    <span id="total-${id}" class="text-sm sm:text-base font-extrabold text-forest font-eng">৳ ${lineTotal}</span>
                   </div>
                 </div>
 
-                <div class="pt-2">
+                <div class="pt-1">
                   <button type="button" 
                           onclick="addToCart('${id}', true)"
-                          class="w-full bg-forest hover:bg-forest-dark text-white font-bold py-3.5 px-4 rounded-xl text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all duration-200 active:scale-[0.98]">
+                          class="w-full bg-forest hover:bg-forest-dark text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 shadow-sm hover:shadow-md transition-all duration-200 active:scale-[0.98]">
                     <i class="fa-solid fa-cart-shopping text-honey"></i>
                     <span>অর্ডার করুন</span>
                     <i class="fa-solid fa-arrow-right text-xs text-honey"></i>
@@ -1699,13 +1638,14 @@
 
       if (cart.length === 0) {
         container.innerHTML = `
-          <div class="text-center py-8 bg-creamDark rounded-2xl border border-dashed border-gray-300">
+          <div class="text-center py-8 px-4 bg-creamDark rounded-2xl border border-dashed border-gray-300">
             <i class="fa-solid fa-basket-shopping text-3xl text-gray-400 mb-2"></i>
-            <p class="text-sm font-bold text-gray-600">আপনার কার্ট বর্তমানে খালি আছে!</p>
-            <p class="text-xs text-gray-500 mb-3">অনুগ্রহ করে নিচের অথবা উপরের যেকোনো পণ্য সিলেক্ট করুন</p>
-            <button type="button" onclick="quickAdd('honey', 1)" class="bg-forest text-white text-xs font-bold px-4 py-2 rounded-xl">
-              ১ কেজি খাঁটি মধু যোগ করুন
-            </button>
+            <p class="text-sm font-bold text-gray-700">🛒 আপনার কার্ট বর্তমানে খালি।</p>
+            <p class="text-xs text-gray-500 mb-4 mt-1">অনুগ্রহ করে ওপরের তালিকা থেকে আপনার পছন্দের পণ্য নির্বাচন করুন।</p>
+            <a href="#products" class="inline-flex items-center gap-2 bg-forest text-honey hover:bg-forest-dark font-bold text-xs px-5 py-2.5 rounded-xl shadow transition">
+              <span>পণ্য তালিকা দেখুন</span>
+              <i class="fa-solid fa-arrow-up text-[10px]"></i>
+            </a>
           </div>
         `;
       } else {
@@ -1770,7 +1710,7 @@
       
       // If combo (3 distinct items), apply discount
       const hasCombo = cart.length >= 3 && cart.some(i => i.productId === 'honey') && cart.some(i => i.productId === 'honeynut') && cart.some(i => i.productId === 'chocolate');
-      const discount = hasCombo ? comboDiscount : 0;
+      const discount = (cart.length === 0) ? 0 : (hasCombo ? comboDiscount : 0);
       const grandTotal = Math.max(0, subtotal + deliveryCharge - discount);
 
       // Update Live Calculation Area
@@ -1785,6 +1725,7 @@
       const headerCartCount = document.getElementById('headerCartCount');
       const headerCartTotal = document.getElementById('headerCartTotal');
       const mobileBarTotal = document.getElementById('mobileBarTotal');
+      const mobileCta = document.getElementById('mobileOrderCtaBtn');
 
       if (subtotalEl) subtotalEl.textContent = formatPrice(subtotal);
       if (delivChargeEl) delivChargeEl.textContent = formatPrice(deliveryCharge);
@@ -1802,6 +1743,16 @@
       if (headerCartCount) headerCartCount.textContent = totalItemsCount;
       if (headerCartTotal) headerCartTotal.textContent = formatPrice(grandTotal);
       if (mobileBarTotal) mobileBarTotal.textContent = formatPrice(grandTotal);
+
+      if (mobileCta) {
+        if (cart.length === 0) {
+          mobileCta.href = '#products';
+          mobileCta.innerHTML = `<span>🛒 পণ্য নির্বাচন করুন</span><i class="fa-solid fa-arrow-up text-xs"></i>`;
+        } else {
+          mobileCta.href = '#checkout';
+          mobileCta.innerHTML = `<span>🛒 অর্ডার করুন</span><i class="fa-solid fa-arrow-right text-xs"></i>`;
+        }
+      }
     }
 
     // FAQ Accordion Toggle
@@ -1853,7 +1804,9 @@
       event.preventDefault();
 
       if (cart.length === 0) {
-        alert("আপনার কার্টে কোনো পণ্য নেই! অনুগ্রহ করে অন্তত একটি পণ্য নির্বাচন করুন।");
+        alert("আপনার কার্ট বর্তমানে খালি! অনুগ্রহ করে ওপরের তালিকা থেকে পণ্য নির্বাচন করুন।");
+        const prodSec = document.getElementById('products');
+        if (prodSec) prodSec.scrollIntoView({ behavior: 'smooth' });
         return;
       }
 
@@ -1988,14 +1941,13 @@ ${discount > 0 ? `🎁 বিশেষ ছাড়: - ${discount} ৳\n` : ''}
       if (modal) modal.classList.add('hidden');
       
       document.getElementById('orderForm').reset();
-      cart = [{ productId: 'honey', variantIndex: 1, qty: 1 }];
+      cart = [];
       renderCart();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // ==================== 17. EMBEDDED BENGALI AI NUTRITION & SALES ASSISTANT ====================
     let aiChatOpen = false;
-    let aiOrderState = null; // null or { step, productId, variantIndex, qty, name, phone, address, zone }
 
     function toggleAIChat() {
       aiChatOpen = !aiChatOpen;
@@ -2017,7 +1969,6 @@ ${discount > 0 ? `🎁 বিশেষ ছাড়: - ${discount} ৳\n` : ''}
     }
 
     function clearAIChatHistory() {
-      aiOrderState = null;
       document.getElementById('aiChatMessages').innerHTML = `
         <div class="flex items-start gap-2.5">
           <div class="w-8 h-8 rounded-full bg-forest text-honey flex items-center justify-center shrink-0 text-sm shadow">
@@ -2080,6 +2031,56 @@ ${discount > 0 ? `🎁 বিশেষ ছাড়: - ${discount} ৳\n` : ''}
       container.scrollTop = container.scrollHeight;
     }
 
+    // Single-Action Direct Add-To-Cart & Scroll to Checkout
+    function aiAddProductToCheckout(productId, variantIndex) {
+      if (productId === 'combo') {
+        addComboToCart();
+      } else {
+        if (typeof variantIndex === 'number' && PRODUCTS[productId]) {
+          PRODUCTS[productId].selectedVariantIndex = variantIndex;
+        }
+        addToCart(productId, true);
+      }
+      
+      // Close AI Chat drawer
+      const win = document.getElementById('aiChatWindow');
+      if (win) win.classList.add('hidden');
+      aiChatOpen = false;
+    }
+
+    // Display Direct Product Selection in AI
+    function aiShowProductOptions() {
+      const activeIds = Object.keys(PRODUCTS).filter(id => PRODUCTS[id].active !== false);
+      const btns = activeIds.map(id => {
+        const p = PRODUCTS[id];
+        const v = p.variants[p.selectedVariantIndex || 0] || p.variants[0];
+        return `
+          <button type="button" onclick="aiAddProductToCheckout('${id}')" class="w-full bg-forest text-honey hover:bg-forest-dark font-bold py-2.5 px-3 rounded-xl text-xs flex items-center justify-between shadow-sm transition">
+            <span class="flex items-center gap-1.5"><i class="fa-solid fa-cart-shopping"></i> ${p.name} (${v.size})</span>
+            <span class="font-eng">৳ ${v.price}</span>
+          </button>
+        `;
+      }).join('');
+
+      appendAIMessage(`
+        <div class="space-y-2">
+          <p class="font-bold text-forest text-sm">🌿 যে পণ্যটি অর্ডার করতে চান সিলেক্ট করুন:</p>
+          <div class="space-y-1.5 pt-1">
+            ${btns}
+            <button type="button" onclick="aiAddProductToCheckout('combo')" class="w-full bg-honey hover:bg-honey-dark text-forest font-black py-2.5 px-3 rounded-xl text-xs flex items-center justify-between shadow-sm border border-honey transition">
+              <span class="flex items-center gap-1.5"><i class="fa-solid fa-gift"></i> ৩-ইন-১ সুপার কম্বো প্যাক</span>
+              <span class="font-eng">৳ ১৫৫০</span>
+            </button>
+          </div>
+          <p class="text-[11px] text-gray-500">পণ্যটি সরাসরি আপনার অর্ডার ফর্মে যোগ হবে এবং আপনি সহজে ক্যাশ অন ডেলিভারিতে অর্ডার কনফার্ম করতে পারবেন।</p>
+        </div>
+      `);
+    }
+
+    function startAIOrderFlow() {
+      aiShowProductOptions();
+    }
+
     function handleAIChatSubmit(e) {
       e.preventDefault();
       const input = document.getElementById('aiChatInput');
@@ -2089,18 +2090,12 @@ ${discount > 0 ? `🎁 বিশেষ ছাড়: - ${discount} ৳\n` : ''}
       appendUserMessage(query);
       input.value = '';
 
-      // If currently inside step-by-step conversational order collection
-      if (aiOrderState) {
-        processAIOrderStep(query);
-        return;
-      }
-
       // Natural Bengali NLP Knowledge Matching
       const lower = query.toLowerCase();
 
       // 1. Order Intent
       if (lower.includes('order') || lower.includes('অর্ডার') || lower.includes('কিনব') || lower.includes('নিতে চাই') || lower.includes('ক্রয়') || lower.includes('নেব') || lower.includes('কিনতে চাই')) {
-        startAIOrderFlow();
+        aiShowProductOptions();
         return;
       }
 
@@ -2121,8 +2116,8 @@ ${discount > 0 ? `🎁 বিশেষ ছাড়: - ${discount} ৳\n` : ''}
               ⚠️ <strong>সতর্কতা:</strong> ফুটন্ত গরম পানিতে কখনো মধু মেশাবেন না, এতে মধুর প্রাকৃতিক এনজাইম নষ্ট হয়ে যায়। সর্বদা হালকা কুসুম গরম পানি ব্যবহার করুন।
             </p>
             <div class="pt-1 flex gap-2">
-              <button onclick="aiSelectProduct('honey')" class="bg-forest text-honey hover:bg-forest-dark font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1">
-                <i class="fa-solid fa-cart-shopping"></i> খাঁটি র' মধু অর্ডার করুন
+              <button type="button" onclick="aiAddProductToCheckout('honey')" class="bg-forest text-honey hover:bg-forest-dark font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 shadow-sm transition">
+                <i class="fa-solid fa-cart-shopping"></i> 🛒 এই পণ্যটি অর্ডার ফর্মে যোগ করুন
               </button>
             </div>
           </div>
@@ -2147,8 +2142,8 @@ ${discount > 0 ? `🎁 বিশেষ ছাড়: - ${discount} ৳\n` : ''}
               ✅ ডায়াবেটিস রোগী, বয়োবৃদ্ধ ও কিটো/ডায়েট সচেতনদের জন্য সম্পূর্ণ নিরাপদ ও মুখরোচক মিষ্টি সমাধান।
             </p>
             <div class="pt-1 flex gap-2">
-              <button onclick="aiSelectProduct('chocolate')" class="bg-forest text-honey hover:bg-forest-dark font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1">
-                <i class="fa-solid fa-cart-shopping"></i> সুগার-ফ্রি চকলেট অর্ডার করুন
+              <button type="button" onclick="aiAddProductToCheckout('chocolate')" class="bg-forest text-honey hover:bg-forest-dark font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 shadow-sm transition">
+                <i class="fa-solid fa-cart-shopping"></i> 🛒 এই পণ্যটি অর্ডার ফর্মে যোগ করুন
               </button>
             </div>
           </div>
@@ -2173,8 +2168,8 @@ ${discount > 0 ? `🎁 বিশেষ ছাড়: - ${discount} ৳\n` : ''}
               • <strong>স্কুলপড়ুয়া বাচ্চাদের জন্য:</strong> সকালের নাস্তায় এক চামচ রয়েল হানি-নাট পড়ালেখা ও খেলাধুলার পূর্ণ এনার্জি নিশ্চিত করে।
             </p>
             <div class="pt-1 flex gap-2">
-              <button onclick="aiSelectProduct('honey')" class="bg-forest text-honey hover:bg-forest-dark font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1">
-                <i class="fa-solid fa-cart-shopping"></i> খাঁটি মধু কিনুন
+              <button type="button" onclick="aiAddProductToCheckout('honey')" class="bg-forest text-honey hover:bg-forest-dark font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 shadow-sm transition">
+                <i class="fa-solid fa-cart-shopping"></i> 🛒 এই পণ্যটি অর্ডার ফর্মে যোগ করুন
               </button>
             </div>
           </div>
@@ -2199,8 +2194,8 @@ ${discount > 0 ? `🎁 বিশেষ ছাড়: - ${discount} ৳\n` : ''}
               💡 <strong>তরল করার নিয়ম:</strong> মধুর বৈয়ামটি হালকা গরম পানির পাত্রে কিছুক্ষণ ডুবিয়ে রাখুন, মধু স্বাভাবিকভাবেই আগের মতো চকচকে তরল হয়ে যাবে। কখনো সরাসরি আগুনে গরম করবেন না।
             </p>
             <div class="pt-1 flex gap-2">
-              <button onclick="aiSelectProduct('honey')" class="bg-forest text-honey hover:bg-forest-dark font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1">
-                <i class="fa-solid fa-cart-shopping"></i> শতভাগ খাঁটি মধু নিন
+              <button type="button" onclick="aiAddProductToCheckout('honey')" class="bg-forest text-honey hover:bg-forest-dark font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 shadow-sm transition">
+                <i class="fa-solid fa-cart-shopping"></i> 🛒 এই পণ্যটি অর্ডার ফর্মে যোগ করুন
               </button>
             </div>
           </div>
@@ -2225,8 +2220,8 @@ ${discount > 0 ? `🎁 বিশেষ ছাড়: - ${discount} ৳\n` : ''}
               🛡️ <strong>১০০% মানিব্যাক গ্যারান্টি:</strong> ডেলিভারিম্যানের সামনে পার্সেল খুলে মধু দেখে ও টেস্ট করে নেওয়ার পূর্ণ অধিকার রয়েছে। বিন্দুমাত্র অসন্তোষে সাথে সাথে রিটার্ন করতে পারবেন, অগ্রিম কোনো চার্জ দিতে হবে না।
             </div>
             <div class="pt-1 flex gap-2">
-              <button onclick="startAIOrderFlow()" class="bg-forest text-honey hover:bg-forest-dark font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1">
-                <i class="fa-solid fa-truck-fast"></i> টেস্ট করে ক্যাশ অন ডেলিভারিতে নিন
+              <button type="button" onclick="aiShowProductOptions()" class="bg-forest text-honey hover:bg-forest-dark font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 shadow-sm transition">
+                <i class="fa-solid fa-truck-fast"></i> 🛒 টেস্ট করে ক্যাশ অন ডেলিভারিতে নিন
               </button>
             </div>
           </div>
@@ -2257,9 +2252,9 @@ ${discount > 0 ? `🎁 বিশেষ ছাড়: - ${discount} ৳\n` : ''}
                 <span class="text-emerald text-xs font-bold">+ ফ্রি হোম ডেলিভারি!</span>
               </div>
             </div>
-            <button onclick="aiSelectProduct('combo')" class="w-full bg-honey hover:bg-honey-dark text-forest font-bold py-2.5 px-4 rounded-xl text-xs shadow flex items-center justify-center gap-2 transition">
+            <button type="button" onclick="aiAddProductToCheckout('combo')" class="w-full bg-honey hover:bg-honey-dark text-forest font-bold py-2.5 px-4 rounded-xl text-xs shadow flex items-center justify-center gap-2 transition">
               <i class="fa-solid fa-gift"></i>
-              <span>১-ক্লিকে কম্বো অর্ডার করুন (১৫৫০ ৳)</span>
+              <span>🛒 এই কম্বোটি অর্ডার ফর্মে যোগ করুন (১৫৫০ ৳)</span>
             </button>
           </div>
         `);
@@ -2288,8 +2283,8 @@ ${discount > 0 ? `🎁 বিশেষ ছাড়: - ${discount} ৳\n` : ''}
             <p class="text-[11px] text-gray-600">
               💵 <strong>১০০% ক্যাশ অন ডেলিভারি:</strong> অগ্রিম কোনো পেমেন্ট দিতে হবে না। ডেলিভারিম্যান পার্সেল নিয়ে গেলে দেখে-শুনে তারপর মূল্য পরিশোধ করবেন।
             </p>
-            <button onclick="startAIOrderFlow()" class="w-full bg-forest text-honey hover:bg-forest-dark font-bold py-2 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow">
-              <i class="fa-solid fa-cart-shopping"></i> সরাসরি অর্ডার শুরু করুন
+            <button type="button" onclick="aiShowProductOptions()" class="w-full bg-forest text-honey hover:bg-forest-dark font-bold py-2 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow transition">
+              <i class="fa-solid fa-cart-shopping"></i> 🛒 পণ্য নির্বাচন করে অর্ডার করুন
             </button>
           </div>
         `);
@@ -2304,8 +2299,8 @@ ${discount > 0 ? `🎁 বিশেষ ছাড়: - ${discount} ৳\n` : ''}
             <p>প্রিমিয়াম কাঠবাদাম, কাজুবাদাম, পেস্তাবাদাম ও আখরোটকে খাঁটি মধুতে ডুবিয়ে তৈরি আমাদের সেরা এনার্জি বুস্টার!</p>
             <p>• <strong>উপকারিতা:</strong> সারাদিনের ক্লান্তি ও দুর্বলতা দূর করে, ব্রেন পাওয়ার বাড়ায় এবং স্ট্যামিনা বৃদ্ধি করে।</p>
             <p class="font-eng font-bold text-forest">মূল্য: ৫০০ গ্রাম = ৳ ৭৫০ | ১ কেজি = ৳ ১৩৫০</p>
-            <button onclick="aiSelectProduct('honeynut')" class="bg-forest text-honey hover:bg-forest-dark font-bold px-3.5 py-1.5 rounded-xl text-xs flex items-center gap-1.5 mt-1">
-              <i class="fa-solid fa-cart-shopping"></i> হানি নাট অর্ডার করুন
+            <button type="button" onclick="aiAddProductToCheckout('honeynut')" class="bg-forest text-honey hover:bg-forest-dark font-bold px-3.5 py-1.5 rounded-xl text-xs flex items-center gap-1.5 mt-1 shadow-sm transition">
+              <i class="fa-solid fa-cart-shopping"></i> 🛒 এই পণ্যটি অর্ডার ফর্মে যোগ করুন
             </button>
           </div>
         `);
@@ -2320,8 +2315,8 @@ ${discount > 0 ? `🎁 বিশেষ ছাড়: - ${discount} ৳\n` : ''}
             <p>সুন্দরবনের প্রাকৃতিক মৌচাক থেকে সরাসরি সংগৃহীত অপরিশোধিত কাঁচা মধু। কোনো হিটিং, প্রসেসিং বা চিনি ছাড়া শতভাগ বিশুদ্ধ।</p>
             <p>• <strong>উপকারিতা:</strong> সর্দি-কাশি উপশম, ফুসফুসের সুরক্ষা, ওজন নিয়ন্ত্রণ এবং ত্বক উজ্জ্বল রাখতে সহায়ক।</p>
             <p class="font-eng font-bold text-forest">মূল্য: ৫০০ গ্রাম = ৳ ৫৫০ | ১ কেজি = ৳ ৯৫০</p>
-            <button onclick="aiSelectProduct('honey')" class="bg-forest text-honey hover:bg-forest-dark font-bold px-3.5 py-1.5 rounded-xl text-xs flex items-center gap-1.5 mt-1">
-              <i class="fa-solid fa-cart-shopping"></i> র' মধু অর্ডার করুন
+            <button type="button" onclick="aiAddProductToCheckout('honey')" class="bg-forest text-honey hover:bg-forest-dark font-bold px-3.5 py-1.5 rounded-xl text-xs flex items-center gap-1.5 mt-1 shadow-sm transition">
+              <i class="fa-solid fa-cart-shopping"></i> 🛒 এই পণ্যটি অর্ডার ফর্মে যোগ করুন
             </button>
           </div>
         `);
@@ -2335,8 +2330,8 @@ ${discount > 0 ? `🎁 বিশেষ ছাড়: - ${discount} ৳\n` : ''}
             <strong class="text-forest text-sm">🍫 সুগার-ফ্রি হানি ডার্ক চকলেট:</strong>
             <p>কোনো রিফাইন্ড চিনি, প্রিজারভেটিভ বা পাম অয়েল ছাড়া খাঁটি কোকোয়া ও কাঁচা মধুর মিশ্রণে তৈরি স্বাস্থ্যকর ডার্ক চকলেট।</p>
             <p>• <strong>মূল্য:</strong> স্পেশাল প্যাক (২০০ গ্রাম) = ৳ ৪৫০ | প্রিমিয়াম গিফট বক্স (৫০০ গ্রাম) = ৳ ৯৫০</p>
-            <button onclick="aiSelectProduct('chocolate')" class="bg-forest text-honey hover:bg-forest-dark font-bold px-3.5 py-1.5 rounded-xl text-xs flex items-center gap-1.5 mt-1">
-              <i class="fa-solid fa-cart-shopping"></i> ডার্ক চকলেট অর্ডার করুন
+            <button type="button" onclick="aiAddProductToCheckout('chocolate')" class="bg-forest text-honey hover:bg-forest-dark font-bold px-3.5 py-1.5 rounded-xl text-xs flex items-center gap-1.5 mt-1 shadow-sm transition">
+              <i class="fa-solid fa-cart-shopping"></i> 🛒 এই পণ্যটি অর্ডার ফর্মে যোগ করুন
             </button>
           </div>
         `);
@@ -2353,208 +2348,18 @@ ${discount > 0 ? `🎁 বিশেষ ছাড়: - ${discount} ৳\n` : ''}
             আপনি কি কোনো নির্দিষ্ট স্বাস্থ্য সমস্যার সমাধান জানতে চান, নাকি সরাসরি ক্যাশ অন ডেলিভারিতে অর্ডার করতে চান?
           </p>
           <div class="pt-1 flex flex-wrap gap-1.5">
-            <button onclick="startAIOrderFlow()" class="bg-forest text-honey font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1">
+            <button type="button" onclick="aiShowProductOptions()" class="bg-forest text-honey font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1 shadow-sm transition">
               <i class="fa-solid fa-cart-shopping"></i> 🛒 এখনই অর্ডার করুন
             </button>
-            <button onclick="sendQuickQuestion('আজকের স্পেশাল অফার কি?')" class="bg-amber-100 text-amber-900 font-bold px-2.5 py-1 rounded-xl text-xs">
+            <button type="button" onclick="sendQuickQuestion('আজকের স্পেশাল অফার কি?')" class="bg-amber-100 text-amber-900 font-bold px-2.5 py-1 rounded-xl text-xs">
               🔥 আজকের অফার
             </button>
-            <button onclick="sendQuickQuestion('গ্যাস্ট্রিক ও আলসারে মধু কীভাবে খাব?')" class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-2.5 py-1 rounded-xl text-xs">
+            <button type="button" onclick="sendQuickQuestion('গ্যাস্ট্রিক ও আলসারে মধু কীভাবে খাব?')" class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-2.5 py-1 rounded-xl text-xs">
               🩺 গ্যাস্ট্রিক পরামর্শ
             </button>
           </div>
         </div>
       `);
-    }
-
-    // Step-by-step Interactive AI Order Flow
-    function startAIOrderFlow() {
-      aiOrderState = { step: 1 };
-      
-      const prodsBtns = Object.keys(PRODUCTS).filter(id => PRODUCTS[id].active !== false).map(id => {
-        return `<button onclick="aiSelectProduct('${id}')" class="bg-creamDark hover:bg-forest hover:text-white border border-gray-300 font-bold px-3 py-1.5 rounded-xl text-xs text-left transition">${PRODUCTS[id].name}</button>`;
-      }).join('');
-
-      appendAIMessage(`
-        চমৎকার! আসুন আপনার অর্ডারটি দ্রুত কনফার্ম করি।<br><br>
-        <strong>ধাপ ১: আপনি কোন পণ্যটি নিতে চান?</strong><br>
-        <div class="flex flex-col gap-1.5 pt-2">
-          ${prodsBtns}
-          <button onclick="aiSelectProduct('combo')" class="bg-honey/30 hover:bg-honey text-forest font-black px-3 py-1.5 rounded-xl text-xs text-left border border-honey">
-            🎁 ৩-ইন-১ মেগা কম্বো প্যাক (১৫৫০ ৳)
-          </button>
-        </div>
-      `);
-    }
-
-    function aiSelectProduct(productId) {
-      if (productId === 'combo') {
-        aiOrderState = {
-          step: 3,
-          productId: 'combo',
-          variantSize: 'র\' মধু (৫০০g) + হানি নাট (৫০০g) + চকলেট (২০০g)',
-          price: 1550,
-          qty: 1
-        };
-        appendAIMessage(`
-          আপনি <strong>৩-ইন-১ মেগা কম্বো</strong> নির্বাচন করেছেন (মূল্য: ১৫৫০ ৳)।<br><br>
-          <strong>ধাপ ২: অনুগ্রহ করে আপনার সম্পূর্ণ নাম লিখুন:</strong>
-        `);
-        return;
-      }
-
-      const prod = PRODUCTS[productId] || DEFAULT_PRODUCTS[productId];
-      aiOrderState = { step: 2, productId };
-
-      const variantBtns = prod.variants.map((v, idx) => {
-        return `<button onclick="aiSelectVariant(${idx})" class="bg-forest text-honey hover:bg-forest-dark font-bold px-3 py-1.5 rounded-xl text-xs transition">${v.size} — ৳ ${v.price}</button>`;
-      }).join('');
-
-      appendAIMessage(`
-        আপনি <strong>${prod.name}</strong> নির্বাচন করেছেন।<br><br>
-        <strong>ধাপ ২: কোন সাইজটি নিতে চান?</strong><br>
-        <div class="flex flex-wrap gap-2 pt-2">
-          ${variantBtns}
-        </div>
-      `);
-    }
-
-    function aiSelectVariant(varIdx) {
-      const prod = PRODUCTS[aiOrderState.productId];
-      const variant = prod.variants[varIdx];
-      aiOrderState.variantIndex = varIdx;
-      aiOrderState.variantSize = variant.size;
-      aiOrderState.price = variant.price;
-      aiOrderState.qty = 1;
-      aiOrderState.step = 3;
-
-      appendAIMessage(`
-        প্যাকেজ: <strong>${variant.size} (৳ ${variant.price})</strong> নির্বাচিত হয়েছে।<br><br>
-        <strong>ধাপ ৩: অনুগ্রহ করে আপনার সম্পূর্ণ নাম লিখুন:</strong>
-      `);
-    }
-
-    function processAIOrderStep(text) {
-      if (aiOrderState.step === 3) {
-        aiOrderState.name = text;
-        aiOrderState.step = 4;
-        appendAIMessage(`
-          ধন্যবাদ ${text} ভাই/ম্যাডাম!<br><br>
-          <strong>ধাপ ৪: আপনার ১১ ডিজিটের মোবাইল নম্বরটি লিখুন (যেমন: 017XXXXXXXX):</strong>
-        `);
-        return;
-      }
-
-      if (aiOrderState.step === 4) {
-        const phone = text.replace(/[^0-9]/g, '');
-        if (!/^01[3-9]\d{8}$/.test(phone)) {
-          appendAIMessage(`
-            ⚠️ অনুগ্রহ করে একটি সঠিক ১১ ডিজিটের বাংলাদেশী মোবাইল নম্বর দিন (যেমন: 01610594042):
-          `);
-          return;
-        }
-        aiOrderState.phone = phone;
-        aiOrderState.step = 5;
-        appendAIMessage(`
-          মোবাইল নম্বর <strong>${phone}</strong> নোট করা হয়েছে।<br><br>
-          <strong>ধাপ ৫: আপনার বিস্তারিত ডেলিভারি ঠিকানা লিখুন (বাসা নং, রোড, থানা, জেলা):</strong>
-        `);
-        return;
-      }
-
-      if (aiOrderState.step === 5) {
-        aiOrderState.address = text;
-        aiOrderState.step = 6;
-        appendAIMessage(`
-          ঠিকানা গৃহীত হয়েছে।<br><br>
-          <strong>ধাপ ৬: ডেলিভারি এলাকা নির্বাচন করুন:</strong><br>
-          <div class="flex gap-2 pt-2">
-            <button onclick="aiSelectZone('dhaka')" class="bg-forest text-white font-bold px-3 py-1.5 rounded-xl text-xs">
-              ঢাকার ভেতরে (${feeDhaka} ৳)
-            </button>
-            <button onclick="aiSelectZone('outside')" class="bg-gray-100 hover:bg-forest hover:text-white text-gray-800 font-bold px-3 py-1.5 rounded-xl text-xs border">
-              ঢাকার বাইরে (${feeOutside} ৳)
-            </button>
-          </div>
-        `);
-        return;
-      }
-    }
-
-    function aiSelectZone(zone) {
-      aiOrderState.zone = zone;
-      const deliveryFee = (zone === 'dhaka') ? feeDhaka : feeOutside;
-      const subtotal = aiOrderState.price * (aiOrderState.qty || 1);
-      const grandTotal = subtotal + deliveryFee;
-      aiOrderState.grandTotal = grandTotal;
-      aiOrderState.deliveryFee = deliveryFee;
-      aiOrderState.subtotal = subtotal;
-
-      const prodName = aiOrderState.productId === 'combo' ? '৩-ইন-১ হেলদি কম্বো প্যাক' : PRODUCTS[aiOrderState.productId].name;
-
-      appendAIMessage(`
-        📋 <strong>আপনার অর্ডারের সারসংক্ষেপ:</strong><br>
-        • পণ্য: ${prodName} (${aiOrderState.variantSize})<br>
-        • গ্রাহক: ${aiOrderState.name}<br>
-        • মোবাইল: ${aiOrderState.phone}<br>
-        • ঠিকানা: ${aiOrderState.address}<br>
-        • ডেলিভারি এলাকা: ${zone === 'dhaka' ? 'ঢাকার ভেতরে' : 'ঢাকার বাইরে'} (৳ ${deliveryFee})<br>
-        • <strong>সর্বমোট প্রদেয় (COD): ৳ ${grandTotal}</strong><br><br>
-        <button onclick="aiFinalizeOrder()" class="w-full bg-honey hover:bg-honey-dark text-forest font-bold py-2.5 px-4 rounded-xl text-xs shadow flex items-center justify-center gap-1.5 transition">
-          <i class="fa-solid fa-circle-check"></i> ✅ অর্ডার নিশ্চিত করুন (ক্যাশ অন ডেলিভারি)
-        </button>
-      `);
-    }
-
-    function aiFinalizeOrder() {
-      const orderId = `FF-${Math.floor(10000 + Math.random() * 90000)}`;
-      const prodName = aiOrderState.productId === 'combo' ? '৩-ইন-১ হেলদি কম্বো প্যাক' : PRODUCTS[aiOrderState.productId].name;
-
-      const orderRecord = {
-        orderId,
-        name: aiOrderState.name,
-        phone: aiOrderState.phone,
-        address: aiOrderState.address,
-        note: 'AI Assistant Conversational Order',
-        deliveryZone: aiOrderState.zone,
-        deliveryCharge: aiOrderState.deliveryFee,
-        subtotal: aiOrderState.subtotal,
-        discount: 0,
-        grandTotal: aiOrderState.grandTotal,
-        status: 'Pending',
-        source: 'AI Bot',
-        itemsText: `• ${prodName} (${aiOrderState.variantSize}) x 1 = ৳ ${aiOrderState.subtotal}`,
-        date: new Date().toISOString()
-      };
-
-      // Save locally
-      try {
-        const history = JSON.parse(localStorage.getItem('freshy_orders') || '[]');
-        history.unshift(orderRecord);
-        localStorage.setItem('freshy_orders', JSON.stringify(history));
-      } catch(e) {}
-
-      // Dual-sync to Google Sheet Webhook
-      syncOrderToGoogleSheet(orderRecord);
-
-      // Confetti
-      try {
-        if (typeof confetti === 'function') confetti({ particleCount: 80, spread: 60 });
-      } catch(e) {}
-
-      const waMsg = encodeURIComponent(`🌿 *নতুন ফ্রেশি ফুড অর্ডার (AI Bot)*\nঅর্ডার আইডি: #${orderId}\nনাম: ${aiOrderState.name}\nমোবাইল: ${aiOrderState.phone}\nঠিকানা: ${aiOrderState.address}\nপণ্য: ${prodName} (${aiOrderState.variantSize})\nসর্বমোট: ৳ ${aiOrderState.grandTotal} (ক্যাশ অন ডেলিভারি)`);
-      const waURL = `https://wa.me/8801610594042?text=${waMsg}`;
-
-      appendAIMessage(`
-        🎉 <strong>আলহামদুলিল্লাহ! আপনার অর্ডারটি সফলভাবে গ্রহণ করা হয়েছে।</strong><br>
-        🆔 অর্ডার আইডি: <strong>#${orderId}</strong><br>
-        আমাদের ডেলিভারি টিম খুব শীঘ্রই আপনার সাথে যোগাযোগ করবে।<br><br>
-        <a href="${waURL}" target="_blank" class="w-full bg-[#25D366] text-white font-bold py-2 px-3 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow">
-          <i class="fa-brands fa-whatsapp text-sm"></i> হোয়াটসঅ্যাপে রসিদ কনফার্ম করুন
-        </a>
-      `);
-
-      aiOrderState = null;
     }
   </script>
 
