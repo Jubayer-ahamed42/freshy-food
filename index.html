@@ -1227,7 +1227,7 @@
   </aside>
 
   <!-- ==================== 15. ORDER SUCCESS CONFIRMATION MODAL ==================== -->
-  <div id="successModal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+  <div id="successModal" onclick="if(event.target === this) closeSuccessModal()" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
     <div class="relative bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border-2 border-forest my-8 animate-in fade-in zoom-in duration-300">
       
       <!-- Close button -->
@@ -1919,11 +1919,16 @@
       }
 
       const name = document.getElementById('custName').value.trim();
-      const phone = document.getElementById('custPhone').value.trim();
+      let phone = document.getElementById('custPhone').value.trim();
       const address = document.getElementById('custAddress').value.trim();
       const note = document.getElementById('custNote').value.trim();
 
-      // Simple BD Phone validation
+      // Normalize Bengali numerals to English digits & strip formatting
+      const bnDigits = {'০':'0','১':'1','২':'2','৩':'3','৪':'4','৫':'5','৬':'6','৭':'7','৮':'8','৯':'9'};
+      phone = phone.replace(/[০-৯]/g, d => bnDigits[d] || d).replace(/[\s\-\+]/g, '');
+      if (phone.startsWith('880')) phone = phone.slice(2);
+
+      // Simple BD Phone validation (013-019 followed by 8 digits)
       const phoneRegex = /^01[3-9]\d{8}$/;
       const phoneError = document.getElementById('phoneError');
       if (!phoneRegex.test(phone)) {
@@ -2054,6 +2059,16 @@ ${discount > 0 ? `🎁 বিশেষ ছাড়: - ${discount} ৳\n` : ''}
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    // Keyboard support: Close modal on Escape
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('successModal');
+        if (modal && !modal.classList.contains('hidden')) {
+          closeSuccessModal();
+        }
+      }
+    });
+
     // ==================== 17. EMBEDDED BENGALI AI NUTRITION & SALES ASSISTANT ====================
     let aiChatOpen = false;
 
@@ -2114,11 +2129,10 @@ ${discount > 0 ? `🎁 বিশেষ ছাড়: - ${discount} ৳\n` : ''}
       const container = document.getElementById('aiChatMessages');
       const div = document.createElement('div');
       div.className = 'flex justify-end';
-      div.innerHTML = `
-        <div class="bg-forest text-white p-3 rounded-2xl rounded-tr-none shadow-sm max-w-[85%] leading-relaxed text-xs sm:text-sm">
-          ${text}
-        </div>
-      `;
+      const bubble = document.createElement('div');
+      bubble.className = 'bg-forest text-white p-3 rounded-2xl rounded-tr-none shadow-sm max-w-[85%] leading-relaxed text-xs sm:text-sm';
+      bubble.textContent = text;
+      div.appendChild(bubble);
       container.appendChild(div);
       container.scrollTop = container.scrollHeight;
     }

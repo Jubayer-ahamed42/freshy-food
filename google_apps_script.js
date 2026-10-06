@@ -182,26 +182,127 @@ function doPost(e) {
 }
 
 /**
- * Health check / Ping endpoint (Both standard JSON & JSONP supported)
+ * Health check / Ping & Orders Fetch endpoint (Both standard JSON & JSONP supported)
  */
 function doGet(e) {
-  var responseData = {
-    status: "active",
-    connected: true,
-    brand: "Freshy Food (ফ্রেশি ফুড)",
-    message: "Google Sheet Order Webhook is running 100% fine!",
-    timestamp: Utilities.formatDate(new Date(), "Asia/Dhaka", "dd/MM/yyyy hh:mm a")
-  };
+  try {
+    var action = (e && e.parameter && e.parameter.action) ? e.parameter.action : "ping";
 
-  // JSONP সাপোর্ট (ব্রাউজারে কোনো CORS সীমাবদ্ধতা ছাড়া টেস্ট করার জন্য)
+    // 1. Fetch Orders from Sheet
+    if (action === "getOrders" || action === "fetchOrders") {
+      var ss = SpreadsheetApp.getActiveSpreadsheet();
+      var sheet = ss.getSheetByName(CONFIG.SHEET_NAME);
+      
+      if (!sheet) {
+        return sendResponse({ status: "success", orders: [] }, e);
+      }
+
+      var lastRow = sheet.getLastRow();
+      if (lastRow <= 1) {
+        return sendResponse({ status: "success", orders: [] }, e);
+      }
+
+      // Read all rows except header
+      var data = sheet.getRange(2, 1, lastRow - 1, CONFIG.HEADERS.length).getValues();
+      var orders = [];
+
+      for (var i = 0; i < data.length; i++) {
+        var row = data[i];
+        if (!row[1]) continue; // Skip empty orderId
+
+        orders.push({
+          date: row[0] ? String(row[0]) : "",
+          orderId: String(row[1] || ""),
+          name: String(row[2] || ""),
+          phone: row[3] ? String(row[3]).replace(/^'/, "") : "",
+          address: String(row[4] || ""),
+          deliveryZone: (row[5] === "ঢাকার ভেতরে" || row[5] === "dhaka") ? "dhaka" : "outside",
+          itemsText: String(row[6] || ""),
+          subtotal: Number(row[7]) || 0,
+          deliveryCharge: Number(row[8]) || 0,
+          discount: Number(row[9]) || 0,
+          grandTotal: Number(row[10]) || 0,
+          note: (row[11] && row[11] !== "-") ? String(row[11]) : "",
+          status: String(row[12] || "Pending"),
+          source: String(row[13] || "Website Form")
+        });
+      }
+
+      // Reverse so newest orders are first
+      orders.reverse();
+
+      return sendResponse({
+        status: "success",
+        total: orders.length,
+        orders: orders
+      }, e);
+    }
+
+    // 2. Update Order Status in Sheet
+    if (action === "updateStatus") {
+      var orderId = e.parameter.orderId;
+      var newStatus = e.parameter.status;
+
+      if (!orderId || !newStatus) {
+        return sendResponse({ status: "error", message: "Missing orderId or status" }, e);
+      }
+
+      var ss = SpreadsheetApp.getActiveSpreadsheet();
+      var sheet = ss.getSheetByName(CONFIG.SHEET_NAME);
+      if (!sheet) {
+        return sendResponse({ status: "error", message: "Sheet not found" }, e);
+      }
+
+      var lastRow = sheet.getLastRow();
+      if (lastRow <= 1) {
+        return sendResponse({ status: "error", message: "No orders in sheet" }, e);
+      }
+
+      var orderIds = sheet.getRange(2, 2, lastRow - 1, 1).getValues();
+      var foundRow = -1;
+
+      for (var j = 0; j < orderIds.length; j++) {
+        if (String(orderIds[j][0]).trim() === String(orderId).trim()) {
+          foundRow = j + 2; // +2 for 1-based indexing and header offset
+          break;
+        }
+      }
+
+      if (foundRow > 0) {
+        sheet.getRange(foundRow, 13).setValue(newStatus); // Column 13 is Status
+        return sendResponse({ status: "success", message: "Order status updated in sheet", orderId: orderId, newStatus: newStatus }, e);
+      } else {
+        return sendResponse({ status: "error", message: "Order ID not found in sheet" }, e);
+      }
+    }
+
+    // 3. Default: Health check / Ping endpoint
+    var responseData = {
+      status: "active",
+      connected: true,
+      brand: "Freshy Food (ফ্রেশি ফুড)",
+      message: "Google Sheet Order Webhook is running 100% fine!",
+      timestamp: Utilities.formatDate(new Date(), "Asia/Dhaka", "dd/MM/yyyy hh:mm a")
+    };
+
+    return sendResponse(responseData, e);
+
+  } catch (err) {
+    return sendResponse({ status: "error", message: err.toString() }, e);
+  }
+}
+
+/**
+ * Helper to return either JSONP or standard JSON response
+ */
+function sendResponse(data, e) {
   if (e && e.parameter && e.parameter.callback) {
     var callback = e.parameter.callback;
-    return ContentService.createTextOutput(callback + "(" + JSON.stringify(responseData) + ")")
+    return ContentService.createTextOutput(callback + "(" + JSON.stringify(data) + ")")
       .setMimeType(ContentService.MimeType.JAVASCRIPT);
   }
 
-  // স্ট্যান্ডার্ড JSON
-  return ContentService.createTextOutput(JSON.stringify(responseData))
+  return ContentService.createTextOutput(JSON.stringify(data))
     .setMimeType(ContentService.MimeType.JSON);
 }
 

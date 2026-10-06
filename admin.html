@@ -284,8 +284,17 @@
             <button type="button" onclick="setOrderStatusFilter('Cancelled')" id="filter-Cancelled" class="status-filter-btn px-3 py-1.5 rounded-lg font-bold bg-gray-100 hover:bg-gray-200 text-gray-700">বাতিল</button>
           </div>
 
-          <!-- Actions: Clear Test Orders, Export CSV & Manual Add -->
+          <!-- Actions: Fetch Sheet, Clear Test Orders, Export CSV & Manual Add -->
           <div class="flex items-center gap-2 w-full md:w-auto justify-end flex-wrap">
+            <span id="lastSheetSyncTime" class="text-[11px] font-bold text-forest bg-forest/5 border border-forest/20 px-2.5 py-1.5 rounded-xl hidden"></span>
+            <button type="button" 
+                    id="btnFetchSheetOrders" 
+                    onclick="fetchOrdersFromSheet()" 
+                    class="px-3.5 py-2 bg-honey hover:bg-honey-dark text-forest font-black text-xs rounded-xl shadow transition flex items-center gap-1.5 active:scale-95" 
+                    title="গুগল শিট থেকে সব লাইভ অর্ডার লোড ও সিঙ্ক করুন">
+              <i id="fetchSheetIcon" class="fa-solid fa-arrows-rotate"></i>
+              <span>🔄 শিট থেকে অর্ডার লোড</span>
+            </button>
             <button type="button" onclick="openClearOrdersModal()" class="px-3 py-2 bg-red-50 hover:bg-red-600 text-red-600 hover:text-white border border-red-200 font-bold text-xs rounded-xl transition flex items-center gap-1.5 shadow-sm" title="টেস্ট ও ডেমো অর্ডার মুছে ফেলুন">
               <i class="fa-solid fa-broom"></i>
               <span>🧹 ডেমো/টেস্ট অর্ডার মুছুন</span>
@@ -943,6 +952,9 @@
       loadOrders();
       loadSettings();
       syncPendingOrdersToSheet();
+      if (sessionStorage.getItem('freshy_admin_logged_in') === 'true') {
+        fetchOrdersFromSheet(true);
+      }
     });
 
     // Check Authentication
@@ -974,6 +986,7 @@
         sessionStorage.setItem('freshy_admin_logged_in', 'true');
         loginError.classList.add('hidden');
         checkAuth();
+        fetchOrdersFromSheet(true);
       } else {
         loginError.classList.remove('hidden');
       }
@@ -1019,6 +1032,17 @@
       }
     }
 
+    // HTML Sanitizer to prevent DOM XSS
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
     // Load Orders from LocalStorage
     function loadOrders() {
       try {
@@ -1030,6 +1054,120 @@
       renderOrdersTable();
     }
 
+    // Fetch All Live Orders from Google Sheets
+    async function fetchOrdersFromSheet(silent = false) {
+      const webhookUrl = localStorage.getItem('freshy_webhook_url') || 'https://script.google.com/macros/s/AKfycbxiPbgW_DGxizRxzQpWSCey3EP95t0pJru_CTOec12h9HDr0PgXNLmHKayid12PAlc/exec';
+      const btn = document.getElementById('btnFetchSheetOrders');
+      const icon = document.getElementById('fetchSheetIcon');
+
+      if (!webhookUrl) {
+        if (!silent) alert('অনুগ্রহ করে Settings ট্যাবে আপনার গুগল শিট Webhook URL দিন!');
+        return;
+      }
+
+      if (btn) btn.disabled = true;
+      if (icon) icon.className = 'fa-solid fa-arrows-rotate fa-spin text-forest';
+
+      function processFetchedOrders(sheetOrders) {
+        if (!Array.isArray(sheetOrders)) return;
+
+        // Merge with current local orders, deduplicate by orderId
+        const localOrders = JSON.parse(localStorage.getItem('freshy_orders') || '[]');
+        const orderMap = new Map();
+
+        // 1. Add sheet orders
+        sheetOrders.forEach(o => {
+          if (o && o.orderId) orderMap.set(o.orderId, o);
+        });
+
+        // 2. Merge local orders: preserve local data if not yet in sheet
+        localOrders.forEach(o => {
+          if (o && o.orderId) {
+            if (!orderMap.has(o.orderId)) {
+              orderMap.set(o.orderId, o);
+            } else {
+              const sheetO = orderMap.get(o.orderId);
+              if (o.status && o.status !== 'Pending' && sheetO.status === 'Pending') {
+                sheetO.status = o.status;
+              }
+              if (o.cart && !sheetO.cart) sheetO.cart = o.cart;
+              if (o.items && !sheetO.items) sheetO.items = o.items;
+            }
+          }
+        });
+
+        currentOrders = Array.from(orderMap.values());
+        localStorage.setItem('freshy_orders', JSON.stringify(currentOrders));
+
+        renderStats();
+        renderOrdersTable();
+
+        const nowFormatted = new Date().toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' });
+        const lastFetchEl = document.getElementById('lastSheetSyncTime');
+        if (lastFetchEl) {
+          lastFetchEl.textContent = `সিঙ্ক: ${nowFormatted}`;
+          lastFetchEl.classList.remove('hidden');
+        }
+
+        if (!silent) {
+          alert(`✅ গুগল শিট থেকে ${sheetOrders.length}টি অর্ডার সফলভাবে লোড ও সিঙ্ক করা হয়েছে!`);
+        }
+      }
+
+      // Strategy 1: Standard Fetch
+      try {
+        const fetchUrl = webhookUrl + (webhookUrl.includes('?') ? '&' : '?') + 'action=getOrders&_t=' + Date.now();
+        const res = await fetch(fetchUrl);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.status === 'success' && Array.isArray(data.orders)) {
+            processFetchedOrders(data.orders);
+            if (btn) btn.disabled = false;
+            if (icon) icon.className = 'fa-solid fa-arrows-rotate';
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn("Direct fetch from Google Sheet failed, trying JSONP fallback:", err);
+      }
+
+      // Strategy 2: JSONP fallback (cross-origin friendly in all browsers)
+      try {
+        const callbackName = 'freshy_sheet_cb_' + Date.now();
+        const script = document.createElement('script');
+        const jsonpUrl = webhookUrl + (webhookUrl.includes('?') ? '&' : '?') + 'action=getOrders&callback=' + callbackName + '&_t=' + Date.now();
+
+        window[callbackName] = function(data) {
+          delete window[callbackName];
+          if (document.body.contains(script)) document.body.removeChild(script);
+          if (data && data.status === 'success' && Array.isArray(data.orders)) {
+            processFetchedOrders(data.orders);
+          } else if (!silent) {
+            alert('গুগল শিট থেকে ডাটা পড়তে কোনো সমস্যা হয়েছে। শিট পারমিশন "Anyone" করা আছে কিনা চেক করুন।');
+          }
+          if (btn) btn.disabled = false;
+          if (icon) icon.className = 'fa-solid fa-arrows-rotate';
+        };
+
+        script.onerror = function() {
+          delete window[callbackName];
+          if (document.body.contains(script)) document.body.removeChild(script);
+          if (!silent) alert('গুগল শিট কানেকশনে সমস্যা হয়েছে। URL সঠিক কিনা এবং ইন্টারনেট চালু আছে কিনা চেক করুন।');
+          if (btn) btn.disabled = false;
+          if (icon) icon.className = 'fa-solid fa-arrows-rotate';
+        };
+
+        script.src = jsonpUrl;
+        document.body.appendChild(script);
+
+      } catch (err2) {
+        console.error("JSONP fetch failed:", err2);
+        if (!silent) alert('অর্ডার লোড করতে সমস্যা হয়েছে: ' + err2.message);
+        if (btn) btn.disabled = false;
+        if (icon) icon.className = 'fa-solid fa-arrows-rotate';
+      }
+    }
+
     // Render Stats
     function renderStats() {
       const totalOrders = currentOrders.length;
@@ -1038,7 +1176,7 @@
       let deliveredCount = 0;
 
       currentOrders.forEach(o => {
-        totalRevenue += (o.grandTotal || 0);
+        totalRevenue += (Number(o.grandTotal) || 0);
         const status = o.status || 'Pending';
         if (status === 'Pending') pendingCount++;
         if (status === 'Delivered') deliveredCount++;
@@ -1051,7 +1189,7 @@
       document.getElementById('tabBadgeOrders').textContent = totalOrders;
     }
 
-    // Render Orders Table
+    // Render Orders Table with XSS Sanitization
     function renderOrdersTable() {
       const tbody = document.getElementById('ordersTableBody');
       const emptyMsg = document.getElementById('noOrdersMessage');
@@ -1093,36 +1231,43 @@
           itemsSummary = order.cart.map(c => {
             const prod = productsCatalog[c.productId] || DEFAULT_PRODUCTS[c.productId] || { name: 'পণ্য' };
             const varObj = (prod.variants && prod.variants[c.variantIndex]) ? prod.variants[c.variantIndex] : { size: '' };
-            return `• ${prod.name} (${varObj.size || ''}) x ${c.qty}`;
+            return `• ${escapeHtml(prod.name)} (${escapeHtml(varObj.size || '')}) x ${Number(c.qty) || 1}`;
           }).join('<br>');
         } else if (order.itemsText) {
-          itemsSummary = order.itemsText.replace(/\n/g, '<br>');
+          itemsSummary = escapeHtml(order.itemsText).replace(/\n/g, '<br>');
         } else {
           itemsSummary = 'পণ্য অর্ডার';
         }
 
+        const safeOrderId = escapeHtml(order.orderId);
+        const safeName = escapeHtml(order.name);
+        const safePhone = escapeHtml(order.phone);
+        const safeAddress = escapeHtml(order.address);
+        const safeNote = escapeHtml(order.note);
+        const safeSource = escapeHtml(order.source);
+
         const waText = encodeURIComponent(`আসসালামু আলাইকুম ${order.name} ভাই/ম্যাডাম! Freshy Food থেকে আপনার অর্ডার #${order.orderId} সম্পর্কে যোগাযোগ করছি। মোট প্রদেয়: ৳ ${order.grandTotal} (ক্যাশ অন ডেলিভারি)।`);
-        const waLink = `https://wa.me/88${order.phone.replace(/[^0-9]/g, '')}?text=${waText}`;
+        const waLink = `https://wa.me/88${String(order.phone || '').replace(/[^0-9]/g, '')}?text=${waText}`;
 
         return `
           <tr class="hover:bg-cream transition">
             <td class="p-3.5 align-top">
-              <span class="font-eng font-bold text-forest text-sm block">#${order.orderId}</span>
+              <span class="font-eng font-bold text-forest text-sm block">#${safeOrderId}</span>
               <span class="text-[11px] text-gray-500 block">${dateStr}</span>
-              ${order.source ? `<span class="inline-block bg-gray-100 text-[10px] text-gray-600 px-1.5 py-0.2 rounded mt-1">${order.source}</span>` : ''}
+              ${safeSource ? `<span class="inline-block bg-gray-100 text-[10px] text-gray-600 px-1.5 py-0.2 rounded mt-1">${safeSource}</span>` : ''}
             </td>
             <td class="p-3.5 align-top">
-              <span class="font-bold text-gray-900 block">${order.name}</span>
-              <a href="tel:${order.phone}" class="font-eng text-xs text-leaf hover:underline flex items-center gap-1 mt-0.5">
-                <i class="fa-solid fa-phone text-[10px]"></i> ${order.phone}
+              <span class="font-bold text-gray-900 block">${safeName}</span>
+              <a href="tel:${safePhone}" class="font-eng text-xs text-leaf hover:underline flex items-center gap-1 mt-0.5">
+                <i class="fa-solid fa-phone text-[10px]"></i> ${safePhone}
               </a>
             </td>
             <td class="p-3.5 align-top max-w-[200px]">
-              <span class="text-xs text-gray-700 block">${order.address}</span>
+              <span class="text-xs text-gray-700 block">${safeAddress}</span>
               <span class="inline-block text-[10px] font-bold text-forest bg-forest/10 px-2 py-0.5 rounded-full mt-1">
                 ${order.deliveryZone === 'dhaka' ? 'ঢাকা (৬০ ৳)' : 'ঢাকার বাইরে (১২০ ৳)'}
               </span>
-              ${order.note ? `<p class="text-[11px] text-amber-700 italic mt-0.5">নোট: ${order.note}</p>` : ''}
+              ${safeNote ? `<p class="text-[11px] text-amber-700 italic mt-0.5">নোট: ${safeNote}</p>` : ''}
             </td>
             <td class="p-3.5 align-top text-xs text-gray-700 leading-relaxed">
               ${itemsSummary}
@@ -1132,7 +1277,7 @@
               <span class="text-[10px] text-gray-400">COD</span>
             </td>
             <td class="p-3.5 align-top">
-              <select onchange="updateOrderStatus('${order.orderId}', this.value)" 
+              <select onchange="updateOrderStatus('${safeOrderId}', this.value)" 
                       class="text-xs font-bold rounded-lg px-2 py-1 border ${statusColors[status] || 'bg-gray-100 text-gray-800'} outline-none cursor-pointer">
                 <option value="Pending" ${status === 'Pending' ? 'selected' : ''}>পেন্ডিং</option>
                 <option value="Confirmed" ${status === 'Confirmed' ? 'selected' : ''}>কনফার্মড</option>
@@ -1143,14 +1288,14 @@
             </td>
             <td class="p-3.5 align-top text-center">
               <div class="flex items-center justify-center gap-1.5 flex-wrap">
-                <button type="button" onclick="printPackingSlip('${order.orderId}')" class="px-2.5 py-1.5 rounded-lg bg-forest/10 hover:bg-forest text-forest hover:text-white transition flex items-center gap-1 text-xs font-bold shadow-sm" title="কাস্টমারের ঠিকানাসহ চালান প্রিভিউ">
+                <button type="button" onclick="printPackingSlip('${safeOrderId}')" class="px-2.5 py-1.5 rounded-lg bg-forest/10 hover:bg-forest text-forest hover:text-white transition flex items-center gap-1 text-xs font-bold shadow-sm" title="কাস্টমারের ঠিকানাসহ চালান প্রিভিউ">
                   <i class="fa-solid fa-file-invoice"></i>
                   <span>চালান</span>
                 </button>
                 <a href="${waLink}" target="_blank" class="w-8 h-8 rounded-lg bg-[#25D366]/20 hover:bg-[#25D366] text-[#128C7E] hover:text-white transition flex items-center justify-center text-sm shadow-sm" title="হোয়াটসঅ্যাপে মেসেজ পাঠান">
                   <i class="fa-brands fa-whatsapp"></i>
                 </a>
-                <button type="button" onclick="deleteOrder('${order.orderId}')" class="w-8 h-8 rounded-lg bg-red-100 hover:bg-red-600 text-red-600 hover:text-white transition flex items-center justify-center text-xs shadow-sm" title="অর্ডার মুছুন">
+                <button type="button" onclick="deleteOrder('${safeOrderId}')" class="w-8 h-8 rounded-lg bg-red-100 hover:bg-red-600 text-red-600 hover:text-white transition flex items-center justify-center text-xs shadow-sm" title="অর্ডার মুছুন">
                   <i class="fa-solid fa-trash"></i>
                 </button>
               </div>
@@ -1179,7 +1324,7 @@
       renderOrdersTable();
     }
 
-    // Update Order Status
+    // Update Order Status (Syncs to LocalStorage & Google Sheets)
     function updateOrderStatus(orderId, newStatus) {
       const order = currentOrders.find(o => o.orderId === orderId);
       if (order) {
@@ -1187,6 +1332,15 @@
         localStorage.setItem('freshy_orders', JSON.stringify(currentOrders));
         renderStats();
         renderOrdersTable();
+
+        // Asynchronously update status in Google Sheet in background
+        const webhookUrl = localStorage.getItem('freshy_webhook_url') || 'https://script.google.com/macros/s/AKfycbxiPbgW_DGxizRxzQpWSCey3EP95t0pJru_CTOec12h9HDr0PgXNLmHKayid12PAlc/exec';
+        if (webhookUrl) {
+          const updateUrl = webhookUrl + (webhookUrl.includes('?') ? '&' : '?') + 
+            'action=updateStatus&orderId=' + encodeURIComponent(orderId) + 
+            '&status=' + encodeURIComponent(newStatus) + '&_t=' + Date.now();
+          fetch(updateUrl, { mode: 'no-cors' }).catch(e => console.warn('Status sync to sheet failed:', e));
+        }
       }
     }
 
