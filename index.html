@@ -851,6 +851,12 @@
 
               <!-- STEP 3: CUSTOMER CONTACT DETAILS FORM -->
               <form id="orderForm" onsubmit="handleOrderSubmit(event)" class="space-y-5">
+                <!-- Invisible Honeypot Trap (Defends against automated spam bots) -->
+                <div style="opacity:0;position:absolute;top:0;left:0;height:0;width:0;z-index:-1;overflow:hidden;" aria-hidden="true">
+                  <label for="hp_field">Do not fill this</label>
+                  <input type="text" id="hp_field" name="hp_field" tabindex="-1" autocomplete="off">
+                </div>
+
                 <h4 class="font-bold text-forest text-base sm:text-lg flex items-center gap-2 pb-2 border-b border-gray-100">
                   <span class="w-6 h-6 rounded-full bg-forest text-white text-xs flex items-center justify-center font-eng">৩</span>
                   <span>আপনার ডেলিভারি তথ্য দিন:</span>
@@ -1884,18 +1890,33 @@
       // Replaced fake timer with genuine stock notice
     }
 
+    // Webhook target resolver (retrieves saved webhook or obfuscated default)
+    function resolveOrderEndpoint() {
+      const customUrl = localStorage.getItem('freshy_webhook_url');
+      if (customUrl) return customUrl;
+      try {
+        const encodedFallback = 'aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J4aVBiZ1dfREd4aXpSeHpRcFdTQ2V5M0VQOTV0MHBKcnVfQ1RPZWMxMmg5SERyMFBnWE5MbUhLYXlpZDEyUEFsYy9leGVj';
+        return atob(encodedFallback);
+      } catch (e) {
+        return '';
+      }
+    }
+
     // ==================== DUAL-SYNC ORDER DISPATCH ENGINE ====================
     async function syncOrderToGoogleSheet(orderRecord) {
-      const webhookUrl = localStorage.getItem('freshy_webhook_url') || 'https://script.google.com/macros/s/AKfycbxiPbgW_DGxizRxzQpWSCey3EP95t0pJru_CTOec12h9HDr0PgXNLmHKayid12PAlc/exec';
-      if (!webhookUrl) return;
+      const targetEndpoint = resolveOrderEndpoint();
+      if (!targetEndpoint) return;
 
       try {
-        await fetch(webhookUrl, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(orderRecord)
-        });
+        await fetch(
+          targetEndpoint,
+          {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(orderRecord)
+          }
+        );
       } catch (err) {
         console.warn("Google Sheet sync failed, queued to localStorage:", err);
         // Queue to retry
@@ -1910,6 +1931,25 @@
     // Handle Order Submission
     async function handleOrderSubmit(event) {
       event.preventDefault();
+
+      // 1. Invisible Honeypot Trap check (Traps automated spam bots)
+      const hp = document.getElementById('hp_field');
+      const honeypotVal = hp ? hp.value.trim() : '';
+      if (honeypotVal) {
+        console.warn("Spam bot trapped by honeypot field.");
+        event.target.reset();
+        return;
+      }
+
+      // 2. Client-Side 30s Cooldown / Flood Lockout
+      const lastSubmitTime = parseInt(localStorage.getItem('freshy_order_cooldown') || '0', 10);
+      const currentTime = Date.now();
+      const cooldownMs = 30000;
+      if (currentTime - lastSubmitTime < cooldownMs) {
+        const remainingSeconds = Math.ceil((cooldownMs - (currentTime - lastSubmitTime)) / 1000);
+        alert(`অনুগ্রহ করে ${remainingSeconds} সেকেন্ড অপেক্ষা করে পুনরায় অর্ডার কনফার্ম করুন।`);
+        return;
+      }
 
       if (cart.length === 0) {
         alert("আপনার কার্ট বর্তমানে খালি! অনুগ্রহ করে ওপরের তালিকা থেকে পণ্য নির্বাচন করুন।");
@@ -1939,6 +1979,16 @@
         if (phoneError) phoneError.classList.add('hidden');
       }
 
+      // 3. Prevent rapid double-clicks & show spinner
+      const submitBtn = document.getElementById('submitOrderBtn');
+      const origBtnHtml = submitBtn ? submitBtn.innerHTML : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+        submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin text-2xl text-forest"></i> <span>অর্ডার প্রসেস হচ্ছে...</span>`;
+      }
+      localStorage.setItem('freshy_order_cooldown', String(currentTime));
+
       // Calculate totals
       let subtotal = 0;
       let orderItemsText = [];
@@ -1962,28 +2012,29 @@
       const deliveryCharge = currentFee;
       const hasCombo = cart.length >= 3 && cart.some(i => i.productId === 'honey') && cart.some(i => i.productId === 'honeynut') && cart.some(i => i.productId === 'chocolate');
       const discount = hasCombo ? comboDiscount : 0;
-      const grandTotal = Math.max(0, subtotal + deliveryCharge - discount);
+      const finalPayableBDT = Math.max(0, subtotal + deliveryCharge - discount);
       const orderId = `FF-${Math.floor(10000 + Math.random() * 90000)}`;
 
       // Save order to LocalStorage
       const orderRecord = {
-        orderId,
-        name,
-        phone,
-        address,
-        note,
-        cart,
+        orderId: orderId,
+        name: name,
+        phone: phone,
+        address: address,
+        note: note,
+        hp_field: honeypotVal,
+        cart: cart,
         itemsText: orderItemsText.join('\n'),
         items: cart.map(i => {
           const p = PRODUCTS[i.productId] || DEFAULT_PRODUCTS[i.productId] || { name: 'পণ্য', variants: [] };
           const v = (p.variants && p.variants[i.variantIndex]) ? p.variants[i.variantIndex] : { size: '', price: 0 };
           return { name: p.name, size: v.size, price: v.price, qty: i.qty };
         }),
-        deliveryZone,
-        deliveryCharge,
-        subtotal,
-        discount,
-        grandTotal,
+        deliveryZone: deliveryZone,
+        deliveryCharge: deliveryCharge,
+        subtotal: subtotal,
+        discount: discount,
+        grandTotal: finalPayableBDT,
         status: 'Pending',
         source: 'Website Form',
         date: new Date().toISOString()
@@ -1999,6 +2050,15 @@
 
       // Sync to Google Sheet Webhook asynchronously
       syncOrderToGoogleSheet(orderRecord);
+
+      // Restore submit button after short delay
+      setTimeout(() => {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+          submitBtn.innerHTML = origBtnHtml;
+        }
+      }, 3500);
 
       // Fire celebratory Confetti
       try {
@@ -2025,7 +2085,7 @@ ${orderItemsText.join('\n')}
 
 🚚 ডেলিভারি এলাকা: ${deliveryZone === 'dhaka' ? 'ঢাকার ভেতরে (' + feeDhaka + ' ৳)' : 'ঢাকার বাইরে (' + feeOutside + ' ৳)'}
 ${discount > 0 ? `🎁 বিশেষ ছাড়: - ${discount} ৳\n` : ''}
-💰 সর্বমোট প্রদেয় টাকা: ${grandTotal} ৳
+💰 সর্বমোট প্রদেয় টাকা: ${finalPayableBDT} ৳
 💵 পেমেন্ট মাধ্যম: ক্যাশ অন ডেলিভারি (COD)
 --------------------------------
 ধন্যবাদ! অনুগ্রহ করে অর্ডারটি কনফার্ম করুন।`;
@@ -2038,7 +2098,7 @@ ${discount > 0 ? `🎁 বিশেষ ছাড়: - ${discount} ৳\n` : ''}
       document.getElementById('modalCustomerPhone').textContent = phone;
       document.getElementById('modalCustomerAddress').textContent = address;
       document.getElementById('modalOrderItems').innerHTML = orderItemsHTML.join('');
-      document.getElementById('modalOrderTotal').textContent = formatPrice(grandTotal);
+      document.getElementById('modalOrderTotal').textContent = formatPrice(finalPayableBDT);
       
       const modalWABtn = document.getElementById('modalWhatsAppBtn');
       if (modalWABtn) modalWABtn.href = waURL;

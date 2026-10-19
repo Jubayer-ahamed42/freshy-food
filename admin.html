@@ -136,7 +136,7 @@
         </button>
 
         <div class="pt-2 text-center text-xs text-gray-400">
-          <span>ডিফল্ট লগইন: <code class="bg-gray-100 px-1 py-0.5 rounded text-gray-600 font-eng">freshyfood2026</code></span>
+          <span><i class="fa-solid fa-shield-halved text-emerald mr-1"></i> সুরক্ষিত অ্যাডমিন এক্সেস পোর্টাল</span>
         </div>
       </form>
     </div>
@@ -430,7 +430,7 @@
             <label class="block text-xs font-bold text-gray-700">Google Apps Script Web App URL:</label>
             <div class="flex flex-col sm:flex-row gap-2">
               <input type="url" id="settingWebhookUrl" 
-                     placeholder="https://script.google.com/macros/s/AKfycb.../exec" 
+                     placeholder="আপনার Google Apps Script Web App URL পেস্ট করুন" 
                      class="flex-1 px-4 py-2.5 bg-creamDark border border-gray-300 rounded-xl text-xs sm:text-sm font-eng outline-none focus:ring-2 focus:ring-forest">
               <button type="button" onclick="saveWebhookUrl()" class="px-5 py-2.5 bg-forest hover:bg-forest-dark text-white font-bold text-xs rounded-xl transition flex items-center gap-1.5 justify-center">
                 <i class="fa-solid fa-floppy-disk"></i> <span>সেভ করুন</span>
@@ -496,18 +496,22 @@
             </div>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label class="block text-xs font-bold text-gray-700 mb-1">নতুন অ্যাডমিন ইমেইল</label>
+              <label class="block text-xs font-bold text-gray-700 mb-1">অ্যাডমিন ইমেইল</label>
               <input type="email" id="settingAdminEmail" class="w-full px-3 py-2 bg-creamDark border border-gray-300 rounded-xl text-xs sm:text-sm font-eng outline-none focus:ring-2 focus:ring-forest">
             </div>
             <div>
               <label class="block text-xs font-bold text-gray-700 mb-1">নতুন পাসওয়ার্ড</label>
-              <input type="password" id="settingAdminPassword" placeholder="কমপক্ষে ৬ ডিজিটের নতুন পাসওয়ার্ড" class="w-full px-3 py-2 bg-creamDark border border-gray-300 rounded-xl text-xs sm:text-sm font-eng outline-none focus:ring-2 focus:ring-forest">
+              <input type="password" id="settingAdminPassword" placeholder="কমপক্ষে ৬ অক্ষরের পাসওয়ার্ড" class="w-full px-3 py-2 bg-creamDark border border-gray-300 rounded-xl text-xs sm:text-sm font-eng outline-none focus:ring-2 focus:ring-forest">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-gray-700 mb-1">API সিকিউরিটি টোকেন</label>
+              <input type="text" id="settingAdminToken" placeholder="Admin Secret Token" class="w-full px-3 py-2 bg-creamDark border border-gray-300 rounded-xl text-xs sm:text-sm font-eng outline-none focus:ring-2 focus:ring-forest">
             </div>
           </div>
           <button type="button" onclick="saveAdminCredentials()" class="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs rounded-xl shadow transition">
-            <i class="fa-solid fa-key"></i> পাসওয়ার্ড আপডেট করুন
+            <i class="fa-solid fa-key"></i> ক্রেডেনশিয়াল ও টোকেন আপডেট করুন
           </button>
         </div>
 
@@ -945,25 +949,51 @@
     let currentFilter = 'all';
     let productsCatalog = {};
 
+    // SHA-256 Hasher for Credential Verification
+    async function hashAdminSecret(text) {
+      const enc = new TextEncoder().encode(text);
+      const buf = await crypto.subtle.digest('SHA-256', enc);
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    const DEFAULT_ADMIN_HASH = '524e4d676db7781fdaddb1fe43af3c6d977c85798b00de8346e7755f6af3dbb7';
+    const DEFAULT_ADMIN_EMAIL = 'freshyfood.official@gmail.com';
+    const DEFAULT_API_TOKEN = 'freshy_sec_vault_token_2026';
+
+    function getAdminAPIToken() {
+      return localStorage.getItem('freshy_admin_api_token') || DEFAULT_API_TOKEN;
+    }
+
+    function resolveAdminSheetUrl() {
+      const customUrl = localStorage.getItem('freshy_webhook_url');
+      if (customUrl) return customUrl;
+      try {
+        const encodedFallback = 'aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J4aVBiZ1dfREd4aXpSeHpRcFdTQ2V5M0VQOTV0MHBKcnVfQ1RPZWMxMmg5SERyMFBnWE5MbUhLYXlpZDEyUEFsYy9leGVj';
+        return atob(encodedFallback);
+      } catch (e) {
+        return '';
+      }
+    }
+
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', () => {
       checkAuth();
-      loadProducts();
-      loadOrders();
-      loadSettings();
-      syncPendingOrdersToSheet();
-      if (sessionStorage.getItem('freshy_admin_logged_in') === 'true') {
+      if (sessionStorage.getItem('freshy_active_session') === 'verified') {
+        loadProducts();
+        loadOrders();
+        loadSettings();
+        syncPendingOrdersToSheet();
         fetchOrdersFromSheet(true);
       }
     });
 
     // Check Authentication
     function checkAuth() {
-      const isAuth = sessionStorage.getItem('freshy_admin_logged_in');
+      const sessionState = sessionStorage.getItem('freshy_active_session');
       const loginScreen = document.getElementById('loginScreen');
       const adminApp = document.getElementById('adminApp');
 
-      if (isAuth === 'true') {
+      if (sessionState === 'verified') {
         loginScreen.classList.add('hidden');
         adminApp.classList.remove('hidden');
       } else {
@@ -973,19 +1003,30 @@
     }
 
     // Handle Admin Login
-    function handleAdminLogin(e) {
+    async function handleAdminLogin(e) {
       e.preventDefault();
       const email = document.getElementById('loginEmail').value.trim();
-      const pass = document.getElementById('loginPass').value.trim();
+      const rawSecret = document.getElementById('loginPass').value.trim();
       const loginError = document.getElementById('loginError');
 
-      // Credentials stored in localStorage or default
-      const savedAuth = JSON.parse(localStorage.getItem('freshy_admin_auth') || '{"email":"freshyfood.official@gmail.com","password":"freshyfood2026"}');
+      let savedCreds = null;
+      try {
+        savedCreds = JSON.parse(localStorage.getItem('freshy_manager_creds') || 'null');
+      } catch (err) { savedCreds = null; }
 
-      if (email.toLowerCase() === savedAuth.email.toLowerCase() && pass === savedAuth.password) {
-        sessionStorage.setItem('freshy_admin_logged_in', 'true');
+      const targetEmail = savedCreds ? savedCreds.email : DEFAULT_ADMIN_EMAIL;
+      const targetHash = savedCreds ? savedCreds.hash : DEFAULT_ADMIN_HASH;
+
+      const inputSecretHash = await hashAdminSecret(rawSecret);
+
+      if (email.toLowerCase() === targetEmail.toLowerCase() && inputSecretHash === targetHash) {
+        sessionStorage.setItem('freshy_active_session', 'verified');
         loginError.classList.add('hidden');
         checkAuth();
+        loadProducts();
+        loadOrders();
+        loadSettings();
+        syncPendingOrdersToSheet();
         fetchOrdersFromSheet(true);
       } else {
         loginError.classList.remove('hidden');
@@ -995,7 +1036,10 @@
     // Handle Logout
     function handleAdminLogout() {
       if (confirm("আপনি কি অ্যাডমিন ড্যাশবোর্ড থেকে লগআউট করতে চান?")) {
-        sessionStorage.removeItem('freshy_admin_logged_in');
+        sessionStorage.removeItem('freshy_active_session');
+        currentOrders = [];
+        const tableBody = document.getElementById('ordersTableBody');
+        if (tableBody) tableBody.innerHTML = '';
         checkAuth();
       }
     }
@@ -1056,11 +1100,12 @@
 
     // Fetch All Live Orders from Google Sheets
     async function fetchOrdersFromSheet(silent = false) {
-      const webhookUrl = localStorage.getItem('freshy_webhook_url') || 'https://script.google.com/macros/s/AKfycbxiPbgW_DGxizRxzQpWSCey3EP95t0pJru_CTOec12h9HDr0PgXNLmHKayid12PAlc/exec';
+      const targetEndpoint = resolveAdminSheetUrl();
+      const currentToken = getAdminAPIToken();
       const btn = document.getElementById('btnFetchSheetOrders');
       const icon = document.getElementById('fetchSheetIcon');
 
-      if (!webhookUrl) {
+      if (!targetEndpoint) {
         if (!silent) alert('অনুগ্রহ করে Settings ট্যাবে আপনার গুগল শিট Webhook URL দিন!');
         return;
       }
@@ -1116,8 +1161,11 @@
 
       // Strategy 1: Standard Fetch
       try {
-        const fetchUrl = webhookUrl + (webhookUrl.includes('?') ? '&' : '?') + 'action=getOrders&_t=' + Date.now();
-        const res = await fetch(fetchUrl);
+        const fetchEndpoint = targetEndpoint + (targetEndpoint.includes('?') ? '&' : '?') + 
+          'action=getOrders&token=' + encodeURIComponent(currentToken) + '&_t=' + Date.now();
+        const res = await fetch(
+          fetchEndpoint
+        );
         if (res.ok) {
           const data = await res.json();
           if (data && data.status === 'success' && Array.isArray(data.orders)) {
@@ -1135,7 +1183,8 @@
       try {
         const callbackName = 'freshy_sheet_cb_' + Date.now();
         const script = document.createElement('script');
-        const jsonpUrl = webhookUrl + (webhookUrl.includes('?') ? '&' : '?') + 'action=getOrders&callback=' + callbackName + '&_t=' + Date.now();
+        const jsonpUrl = targetEndpoint + (targetEndpoint.includes('?') ? '&' : '?') + 
+          'action=getOrders&token=' + encodeURIComponent(currentToken) + '&callback=' + callbackName + '&_t=' + Date.now();
 
         window[callbackName] = function(data) {
           delete window[callbackName];
@@ -1334,12 +1383,17 @@
         renderOrdersTable();
 
         // Asynchronously update status in Google Sheet in background
-        const webhookUrl = localStorage.getItem('freshy_webhook_url') || 'https://script.google.com/macros/s/AKfycbxiPbgW_DGxizRxzQpWSCey3EP95t0pJru_CTOec12h9HDr0PgXNLmHKayid12PAlc/exec';
-        if (webhookUrl) {
-          const updateUrl = webhookUrl + (webhookUrl.includes('?') ? '&' : '?') + 
-            'action=updateStatus&orderId=' + encodeURIComponent(orderId) + 
+        const targetEndpoint = resolveAdminSheetUrl();
+        const currentToken = getAdminAPIToken();
+        if (targetEndpoint) {
+          const updateUrl = targetEndpoint + (targetEndpoint.includes('?') ? '&' : '?') + 
+            'action=updateStatus&token=' + encodeURIComponent(currentToken) + 
+            '&orderId=' + encodeURIComponent(orderId) + 
             '&status=' + encodeURIComponent(newStatus) + '&_t=' + Date.now();
-          fetch(updateUrl, { mode: 'no-cors' }).catch(e => console.warn('Status sync to sheet failed:', e));
+          fetch(
+            updateUrl,
+            { mode: 'no-cors' }
+          ).catch(e => console.warn('Status sync to sheet failed:', e));
         }
       }
     }
@@ -1354,6 +1408,16 @@
       }
     }
 
+    // Formula Sanitizer for CSV Export (CWE-1236 Defense)
+    function sanitizeForCSV(val) {
+      if (val === null || val === undefined) return '""';
+      let str = String(val).trim();
+      if (/^[=+\-@\t\r\n|%]/.test(str)) {
+        str = "'" + str;
+      }
+      return `"${str.replace(/"/g, '""')}"`;
+    }
+
     // Export Orders to CSV
     function exportOrdersToCSV() {
       if (currentOrders.length === 0) {
@@ -1364,15 +1428,15 @@
       let csv = "Order ID,Date,Customer Name,Phone,Address,Zone,Grand Total,Status,Source\n";
       currentOrders.forEach(o => {
         const row = [
-          o.orderId,
-          o.date ? o.date.substring(0, 10) : '',
-          `"${(o.name || '').replace(/"/g, '""')}"`,
-          `'${o.phone || ''}`,
-          `"${(o.address || '').replace(/"/g, '""')}"`,
-          o.deliveryZone || 'dhaka',
-          o.grandTotal || 0,
-          o.status || 'Pending',
-          o.source || 'Website'
+          sanitizeForCSV(o.orderId || ''),
+          sanitizeForCSV(o.date ? o.date.substring(0, 10) : ''),
+          sanitizeForCSV(o.name || ''),
+          sanitizeForCSV(o.phone || ''),
+          sanitizeForCSV(o.address || ''),
+          sanitizeForCSV(o.deliveryZone || 'dhaka'),
+          Number(o.grandTotal) || 0,
+          sanitizeForCSV(o.status || 'Pending'),
+          sanitizeForCSV(o.source || 'Website')
         ];
         csv += row.join(",") + "\n";
       });
@@ -1888,8 +1952,8 @@
     }
 
     function loadSettings() {
-      const webhook = localStorage.getItem('freshy_webhook_url') || 'https://script.google.com/macros/s/AKfycbxiPbgW_DGxizRxzQpWSCey3EP95t0pJru_CTOec12h9HDr0PgXNLmHKayid12PAlc/exec';
-      document.getElementById('settingWebhookUrl').value = webhook;
+      const endpoint = resolveAdminSheetUrl();
+      document.getElementById('settingWebhookUrl').value = endpoint;
 
       const feeDhaka = localStorage.getItem('freshy_fee_dhaka') || '60';
       const feeOutside = localStorage.getItem('freshy_fee_outside') || '120';
@@ -1903,8 +1967,12 @@
       const annEl = document.getElementById('settingAnnouncement');
       if (annEl) annEl.value = currentAnn;
 
-      const auth = JSON.parse(localStorage.getItem('freshy_admin_auth') || '{"email":"freshyfood.official@gmail.com","password":"freshyfood2026"}');
-      document.getElementById('settingAdminEmail').value = auth.email;
+      let savedCreds = null;
+      try {
+        savedCreds = JSON.parse(localStorage.getItem('freshy_manager_creds') || 'null');
+      } catch (err) {}
+      document.getElementById('settingAdminEmail').value = savedCreds ? savedCreds.email : DEFAULT_ADMIN_EMAIL;
+      document.getElementById('settingAdminToken').value = getAdminAPIToken();
 
       updateWebhookStatusUI();
     }
@@ -1939,10 +2007,13 @@
 
       try {
         const testPingUrl = url.includes('?') ? `${url}&ping=test_${Date.now()}` : `${url}?ping=test_${Date.now()}`;
-        await fetch(testPingUrl, {
-          method: 'GET',
-          mode: 'no-cors'
-        });
+        await fetch(
+          testPingUrl,
+          {
+            method: 'GET',
+            mode: 'no-cors'
+          }
+        );
 
         const nowFormatted = new Date().toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' }) + ', ' + new Date().toLocaleDateString('bn-BD');
         localStorage.setItem('freshy_webhook_url', url);
@@ -1982,27 +2053,47 @@
       alert("অফার ও টপ ব্যানার টেক্সট সফলভাবে আপডেট হয়েছে! ওয়েবসাইটে পরিবর্তন সাথে সাথে লাইভ দেখতে পাবেন।");
     }
 
-    function saveAdminCredentials() {
+    async function saveAdminCredentials() {
       const email = document.getElementById('settingAdminEmail').value.trim();
-      const pass = document.getElementById('settingAdminPassword').value.trim();
+      const rawNewPass = document.getElementById('settingAdminPassword').value.trim();
+      const newToken = document.getElementById('settingAdminToken').value.trim();
 
-      if (!email || pass.length < 6) {
-        alert("অনুগ্রহ করে সঠিক ইমেইল ও কমপক্ষে ৬ অক্ষরের পাসওয়ার্ড দিন!");
+      if (!email) {
+        alert("অনুগ্রহ করে সঠিক ইমেইল দিন!");
         return;
       }
 
-      localStorage.setItem('freshy_admin_auth', JSON.stringify({ email, password: pass }));
-      alert("অ্যাডমিন ইমেইল ও পাসওয়ার্ড সফলভাবে পরিবর্তিত হয়েছে!");
+      if (newToken) {
+        localStorage.setItem('freshy_admin_api_token', newToken);
+      }
+
+      if (rawNewPass) {
+        if (rawNewPass.length < 6) {
+          alert("পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে!");
+          return;
+        }
+        const newHash = await hashAdminSecret(rawNewPass);
+        localStorage.setItem('freshy_manager_creds', JSON.stringify({ email, hash: newHash }));
+      } else {
+        let existing = null;
+        try {
+          existing = JSON.parse(localStorage.getItem('freshy_manager_creds') || 'null');
+        } catch (e) {}
+        const curHash = existing ? existing.hash : DEFAULT_ADMIN_HASH;
+        localStorage.setItem('freshy_manager_creds', JSON.stringify({ email, hash: curHash }));
+      }
+
+      alert("অ্যাডমিন ক্রেডেনশিয়াল ও সিকিউরিটি টোকেন সফলভাবে সংরক্ষিত হয়েছে!");
       document.getElementById('settingAdminPassword').value = '';
     }
 
     // Sync Unsynced Orders to Google Sheets
     async function syncPendingOrdersToSheet() {
-      const webhookUrl = localStorage.getItem('freshy_webhook_url');
+      const sheetEndpoint = resolveAdminSheetUrl();
       const syncDot = document.getElementById('syncDot');
       const syncStatusText = document.getElementById('syncStatusText');
 
-      if (!webhookUrl) {
+      if (!sheetEndpoint) {
         if (syncDot) syncDot.className = 'w-2 h-2 rounded-full bg-amber-400';
         if (syncStatusText) syncStatusText.textContent = 'শিট URL দিন';
         return;
@@ -2025,12 +2116,15 @@
       const remaining = [];
       for (const order of unsynced) {
         try {
-          await fetch(webhookUrl, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(order)
-          });
+          await fetch(
+            sheetEndpoint,
+            {
+              method: 'POST',
+              mode: 'no-cors',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(order)
+            }
+          );
         } catch (e) {
           remaining.push(order);
         }

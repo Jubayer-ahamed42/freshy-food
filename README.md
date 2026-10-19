@@ -9,9 +9,9 @@
 
 ### 1. 🔐 Secure In-App Admin Dashboard (`admin.html` & `#admin`)
 - **Password-Protected Access:**
-  - **Default Email:** `freshyfood.official@gmail.com`
-  - **Default Password:** `freshyfood2026`
-  - *(Credentials can be changed directly from the Settings tab inside the dashboard)*.
+  - **Admin Email:** `freshyfood.official@gmail.com`
+  - **Security:** SHA-256 hashed authentication with configurable API security tokens.
+  - *(Admin credentials and tokens can be managed directly from the Settings tab inside the dashboard)*.
 - **Live Order Management:**
   - Real-time order metrics: Total Orders, Total Revenue (BDT), Pending Orders, Delivered Orders.
   - Search & filter by status: `Pending` (হলুদ), `Confirmed` (নীল), `Shipped` (বেগুনি), `Delivered` (সবুজ), `Cancelled` (লাল).
@@ -111,4 +111,4 @@ C:\MY PROJECT\8. FRESHY FOOD E-COMMERCE\
 - **Phone / WhatsApp:** [01610594042](tel:01610594042) / [+8801610594042](https://wa.me/8801610594042)
 - **Email:** freshyfood.official@gmail.com
 - **Facebook:** [https://www.facebook.com/freshyfood.official](https://www.facebook.com/freshyfood.official)
-- **Default Admin Login:** `freshyfood.official@gmail.com` / `freshyfood2026`
+- **Admin Portal:** Accessible at `admin.html` with secure hashed authentication.

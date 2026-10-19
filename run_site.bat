@@ -37,10 +37,8 @@ if %ERRORLEVEL% equ 0 (
     start "" http://localhost:8080/
     start "" http://localhost:8080/admin.html
     echo.
-    echo ========================================================
-    echo  Server running! Press Ctrl+C in this window to stop.
-    echo  Admin Login: freshyfood.official@gmail.com / freshyfood2026
-    echo ========================================================
+    echo  Admin Portal: http://localhost:8080/admin.html
+    echo  Admin Email: freshyfood.official@gmail.com (Password configured in Settings)
     python -m http.server 8080
 ) else (
     echo [INFO] Python not found. Opening files directly in browser...
