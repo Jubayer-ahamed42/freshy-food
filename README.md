@@ -87,7 +87,7 @@ You can choose:
 ## 📂 Project Structure
 
 ```
-C:\MY PROJECT\8. FRESHY FOOD E-COMMERCE\
+freshy-food/
 │
 ├── index.html                   # Storefront, 1-Click COD Funnel & Embedded AI Assistant
 ├── admin.html                   # Secure Admin Dashboard & Order Manager
