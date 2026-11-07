@@ -325,7 +325,7 @@ function doPost(e) {
         var emailSubject = "[Organic] নতুন Freshy Food অর্ডার: #" + safeOrderId + " (" + customerName + " - ৳ " + backendVerifiedTotal + ")";
         var emailBody = "[Organic] Freshy Food নতুন ক্যাশ অন ডেলিভারি (COD) অর্ডার এসেছে!\n\n" +
           "----------------------------------------\n" +
-          "🆔 অর্ডার আইডি: #" + safeOrderId + "\n" +
+          "ID: অর্ডার আইডি: #" + safeOrderId + "\n" +
           "[User] কাস্টমারের নাম: " + customerName + "\n" +
           " মোবাইল নম্বর: " + emailPhone + "\n" +
           " ডেলিভারি ঠিকানা: " + customerAddress + "\n" +
