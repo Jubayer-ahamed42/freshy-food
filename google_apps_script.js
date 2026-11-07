@@ -1,6 +1,6 @@
 /**
  * =========================================================================
- * 🌿 FRESHY FOOD (ফ্রেশি ফুড) — SECURED ORDER SYNC WEBHOOK v2.0 (HARDENED)
+ * FRESHY FOOD (ফ্রেশি ফুড) — SECURED ORDER SYNC WEBHOOK v2.0 (HARDENED)
  * =========================================================================
  * 
  * এই স্ক্রিপ্টটি ফ্রেশি ফুড ওয়েবসাইট (Web Form) ও এআই সেলস অ্যাসিস্ট্যান্ট (AI Bot) 
@@ -8,7 +8,7 @@
  * গুগল শিটে (Google Sheets) অটোমেটিক সেভ করে।
  * 
  * -------------------------------------------------------------------------
- * 🛡️ SECURITY & INTEGRITY PROTECTIONS (STRIX HARDENING):
+ * SECURITY & INTEGRITY PROTECTIONS (STRIX HARDENING):
  * -------------------------------------------------------------------------
  * 1. Admin Token Authentication (OWASP API1 / API2 Protection)
  * 2. Sheet Formula Injection Defense (CWE-1236 Sanitizer)
@@ -322,20 +322,20 @@ function doPost(e) {
     // Instant Email Notification
     if (CONFIG.SEND_EMAIL_NOTIFICATION && CONFIG.ADMIN_EMAIL && safeOrderId !== "TEST-PING") {
       try {
-        var emailSubject = "🌿 নতুন Freshy Food অর্ডার: #" + safeOrderId + " (" + customerName + " - ৳ " + backendVerifiedTotal + ")";
-        var emailBody = "🌿 Freshy Food নতুন ক্যাশ অন ডেলিভারি (COD) অর্ডার এসেছে!\n\n" +
+        var emailSubject = "[Organic] নতুন Freshy Food অর্ডার: #" + safeOrderId + " (" + customerName + " - ৳ " + backendVerifiedTotal + ")";
+        var emailBody = "[Organic] Freshy Food নতুন ক্যাশ অন ডেলিভারি (COD) অর্ডার এসেছে!\n\n" +
           "----------------------------------------\n" +
           "🆔 অর্ডার আইডি: #" + safeOrderId + "\n" +
-          "👤 কাস্টমারের নাম: " + customerName + "\n" +
-          "📞 মোবাইল নম্বর: " + emailPhone + "\n" +
-          "📍 ডেলিভারি ঠিকানা: " + customerAddress + "\n" +
-          "🚚 ডেলিভারি এলাকা: " + zoneBangla + "\n\n" +
-          "📦 অর্ডারকৃত পণ্যসমূহ:\n" + safeItemsText + "\n\n" +
-          "💰 সর্বমোট প্রদেয় টাকা (COD): ৳ " + backendVerifiedTotal + "\n" +
-          "📱 অর্ডারের মাধ্যম: " + safeSource + "\n" +
-          "⏰ অর্ডারের সময়: " + formattedDate + "\n" +
+          "[User] কাস্টমারের নাম: " + customerName + "\n" +
+          " মোবাইল নম্বর: " + emailPhone + "\n" +
+          " ডেলিভারি ঠিকানা: " + customerAddress + "\n" +
+          " ডেলিভারি এলাকা: " + zoneBangla + "\n\n" +
+          "[Package] অর্ডারকৃত পণ্যসমূহ:\n" + safeItemsText + "\n\n" +
+          "[Price] সর্বমোট প্রদেয় টাকা (COD): ৳ " + backendVerifiedTotal + "\n" +
+          "[Mobile] অর্ডারের মাধ্যম: " + safeSource + "\n" +
+          "[Alarm] অর্ডারের সময়: " + formattedDate + "\n" +
           "----------------------------------------\n\n" +
-          "👉 পার্সেল চালান প্রিন্ট করতে বা স্ট্যাটাস আপডেট করতে অ্যাডমিন প্যানেল দেখুন।";
+          "-> পার্সেল চালান প্রিন্ট করতে বা স্ট্যাটাস আপডেট করতে অ্যাডমিন প্যানেল দেখুন।";
 
         MailApp.sendEmail(CONFIG.ADMIN_EMAIL, emailSubject, emailBody);
       } catch (mailError) {

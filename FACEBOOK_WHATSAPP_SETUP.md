@@ -1,15 +1,15 @@
-# 🤖 Facebook Messenger & WhatsApp AI Order Automation Blueprint for Freshy Food
+# Facebook Messenger & WhatsApp AI Order Automation Blueprint for Freshy Food
 
 এই গাইডে সম্পূর্ণ বিস্তারিত দেওয়া হয়েছে কিভাবে **Freshy Food**-এর ফেসবুক পেজ মেসেঞ্জার ও অফিসিয়াল হোয়াটসঅ্যাপকে গুগল শিট এবং অটোমেটেড এআই সেলস অর্ডারিংয়ের সাথে যুক্ত করবেন।
 
 ---
 
-## 🌟 আর্কিটেকচার ওভারভিউ (Omnichannel Dual-Sync)
+## আর্কিটেকচার ওভারভিউ (Omnichannel Dual-Sync)
 
 ```
-[Customer on Website]       ─┐
-[Customer on WhatsApp]      ──┼──> [Google Sheet Orders Database] <──> [admin.html Dashboard]
-[Customer on FB Messenger]  ─┘
+[Customer on Website] ─┐
+[Customer on WhatsApp] ──┼──> [Google Sheet Orders Database] <──> [admin.html Dashboard]
+[Customer on FB Messenger] ─┘
 ```
 
 যেকোনো চ্যানেল থেকে অর্ডার আসলেই তা রিয়েল-টাইমে:
@@ -19,7 +19,7 @@
 
 ---
 
-## 📱 পার্ট ১: WhatsApp Cloud API / WhatsApp Automation কানেক্ট করার ধাপ
+## পার্ট ১: WhatsApp Cloud API / WhatsApp Automation কানেক্ট করার ধাপ
 
 হোয়াটসঅ্যাপে গ্রাহকদের অটোমেটেড মেসেজ ও এআই সেলস চালাতে দুটি জনপ্রিয় ও সহজ পদ্ধতি রয়েছে:
 
@@ -51,7 +51,7 @@
 
 ---
 
-## 💬 পার্ট ২: Facebook Messenger AI Webhook কানেকশন
+## পার্ট ২: Facebook Messenger AI Webhook কানেকশন
 
 ফেসবুক পেজ [facebook.com/freshyfood.official](https://www.facebook.com/freshyfood.official)-এর জন্য:
 
@@ -88,7 +88,7 @@ function doPost(e) {
         let reply = "আসসালামু আলাইকুম! ফ্রেশি ফুডে স্বাগতম। আমাদের খাঁটি মধু, রয়েল হানি নাট ও সুগার-ফ্রি চকলেট অর্ডার করতে সরাসরি আপনার নাম, ফোন ও ঠিকানা মেসেজে লিখুন অথবা ভিজিট করুন আমাদের ওয়েবসাইট!";
         
         if (receivedText.includes("দাম") || receivedText.includes("price")) {
-          reply = "🌿 ফ্রেশি ফুড স্পেশাল মূল্য তালিকা:\n১. র' মধু: ৫০০g = ৫৫০৳, ১kg = ৯৫০৳\n২. রয়েল হানি নাট: ৫০০g = ৭৫০৳, ১kg = ১৩৫০৳\n৩. সুগার-ফ্রি ডার্ক চকলেট: ২০০g = ৪৫০৳\n🚚 ডেলিভারি চার্জ: ঢাকা ৬০৳, বাইরে ১২০৳ (ক্যাশ অন ডেলিভারি)";
+          reply = "[Organic] ফ্রেশি ফুড স্পেশাল মূল্য তালিকা:\n১. র' মধু: ৫০০g = ৫৫০৳, ১kg = ৯৫০৳\n২. রয়েল হানি নাট: ৫০০g = ৭৫০৳, ১kg = ১৩৫০৳\n৩. সুগার-ফ্রি ডার্ক চকলেট: ২০০g = ৪৫০৳\n ডেলিভারি চার্জ: ঢাকা ৬০৳, বাইরে ১২০৳ (ক্যাশ অন ডেলিভারি)";
         }
         
         sendFbMessage(senderPsid, reply);
@@ -113,7 +113,7 @@ function sendFbMessage(recipientId, messageText) {
 
 ---
 
-## ⚡ দ্রুত ও সবচেয়ে জনপ্রিয় বিকল্প: Chatbase / Botpress / ManyChat
+## দ্রুত ও সবচেয়ে জনপ্রিয় বিকল্প: Chatbase / Botpress / ManyChat
 
 যদি কোডিং ছাড়া ৫ মিনিটে ফেসবুক ও হোয়াটসঅ্যাপ কানেক্ট করতে চান:
 1. **ManyChat.com** বা **Botpress**-এ ফ্রেশি ফুড ফেসবুক পেজ কানেক্ট করুন।
